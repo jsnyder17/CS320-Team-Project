@@ -584,7 +584,7 @@ public class DerbyDatabase implements IDatabase {
 					if (roomNumber == -1) {
 						stmt = conn.prepareStatement("SELECT * FROM npcList");
 					} else {
-						stmt = conn.prepareStatement("SELECT * FROM npcList WHERE npcList.room_number=?");
+						stmt = conn.prepareStatement("SELECT * FROM npcList WHERE npcList.current_room=?");
 						stmt.setInt(1, roomNumber);
 					}
 
@@ -1984,13 +1984,13 @@ public class DerbyDatabase implements IDatabase {
 			public Boolean execute(Connection conn) throws SQLException {
 				PreparedStatement stmt = null;
 				try {
-					stmt = conn.prepareStatement("update npcList set actor_name=?, current_room=?, health=?, isHostile=? where npc_id=?");
-
+					stmt = conn.prepareStatement("update npcList set actor_name=?, current_room=?, health=?, isHostile=? where actor_name=?");
+					System.out.println("NPC health = " + npc.getHealth());
 					stmt.setString(1, npc.getName());
 					stmt.setInt(2, npc.getCurrentRoom());
 					stmt.setInt(3, npc.getHealth());
 					stmt.setBoolean(4, npc.getHostile());
-					stmt.setInt(5, npc.getActorId());
+					stmt.setString(5, npc.getName());
 					stmt.executeUpdate();
 
 					return true;
@@ -2080,6 +2080,9 @@ public class DerbyDatabase implements IDatabase {
 					orbList = InitialData.getOrb();
 					roomList = InitialData.getRooms();
 					npcCombatDialogList = InitialData.getNpcCombatDialog();
+					for (Pair<Integer, String> cheese: npcCombatDialogList) {
+						System.out.println("Values: " + cheese.getLeft() + ", " + cheese.getRight());
+					}
 					npcNormalDialogList = InitialData.getNpcNormalDialog();
 					baseItems = InitialData.getBaseItems();
 
@@ -2383,7 +2386,7 @@ public class DerbyDatabase implements IDatabase {
 	// TODO: DO NOT PUT THE DB IN THE SAME FOLDER AS YOUR PROJECT - that will cause
 	// conflicts later w/Git
 	private Connection connect() throws SQLException {
-		Connection conn = DriverManager.getConnection("jdbc:derby:C:/Users/jawsh/d.db;create=true");
+		Connection conn = DriverManager.getConnection("jdbc:derby:C:/Users/drumm/uh.db;create=true");
 
 		// Set autocommit() to false to allow the execution of
 		// multiple queries/statements as part of the same transaction.

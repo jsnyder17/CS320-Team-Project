@@ -85,8 +85,14 @@ public class AttackManager extends Manager {
 					if (npc.getHealth() > 0) {
 						// Turn NPC hostile if not already 
 						if (!npc.getHostile()) {
+							System.out.print("The npc is being set to hostile: ");
 							npc.setHostile(true);
+							System.out.println("Npc hostility = " + npc.getHostileString());
 							db.updateNPC(npc);
+							
+							Npc gregory = db.getIndividualNPC("robot_assistant");
+							System.out.println("The database sees this npc as: " + gregory.getHostileString());
+							System.out.println("The database see this npc's health as: " + gregory.getHealth());
 						}
 					}
 					else {
