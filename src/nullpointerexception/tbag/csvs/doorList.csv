@@ -1,0 +1,17 @@
+FALSE,This is the northern door.,FALSE,FALSE,northern_door_key,1,2
+TRUE,This is the southern door. ,FALSE,FALSE,no_key,1,2
+TRUE,This is the eastern door. ,FALSE,FALSE,no_key,2,3
+TRUE,This is the western door. ,FALSE,FALSE,no_key,2,3
+TRUE,This is the southern door. ,FALSE,FALSE,no_key,3,4
+TRUE,This is the northern door.,FALSE,FALSE,no_key,3,4
+FALSE,This is the western door. ,FALSE,FALSE,big_key,4,5
+TRUE,This is the eastern door. ,FALSE,FALSE,no_key,4,5
+TRUE,Some door,FALSE,FALSE,no_key,5,6
+TRUE,This is the eastern door. ,FALSE,FALSE,no_key,6,7
+TRUE,This is the western door. ,FALSE,FALSE,no_key,6,7
+TRUE,This is the eastern door. ,FALSE,FALSE,no_key,7,8
+TRUE,This is the western door. ,FALSE,FALSE,no_key,7,8
+TRUE,This is the southern door. ,FALSE,FALSE,no_key,8,9
+TRUE,This is the northern door.,FALSE,FALSE,no_key,8,9
+TRUE,This is the eastern door. ,FALSE,FALSE,no_key,9,10
+TRUE,This is the western door. ,FALSE,FALSE,no_key,9,10

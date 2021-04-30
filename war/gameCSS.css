@@ -1,0 +1,59 @@
+@font-face	{
+	font-family: IBMVGA8;
+	src: url('PxPlus_IBM_VGA_9x16.ttf') format('truetype'); 
+}
+
+html, body, textarea {
+	margin: 0;
+	padding: 0;
+	width: 100%;
+}
+
+html, body {
+	height: 100%;
+}
+
+body {
+	background-color: black;
+}
+
+textarea, input {
+	font-family: IBMVGA8,monospace;
+	background-color: black;
+	color: white;
+}
+
+textarea {
+	border: 0;
+	width: 100%;
+	resize: none;
+}
+
+input {
+	height: 12px;
+	border: 0;
+	outline: none;
+}
+
+.playerstats {
+	background-color: blue;
+	height: 16px;
+	position: fixed;
+	top: 0;
+}
+
+.output {
+	background-color: black;
+	outline: none;
+	height: 700px;
+	position: relative;
+	top: 15px;
+}
+
+.inputprompt {
+	font-family: IBMVGA8,monospace;
+	background-color: black;
+	color: white;
+	position: fixed;
+	bottom: 10px;
+}
