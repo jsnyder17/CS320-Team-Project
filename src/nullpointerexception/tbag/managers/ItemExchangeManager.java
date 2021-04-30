@@ -9,6 +9,7 @@ import nullpointerexception.tbag.items.LightSource;
 import nullpointerexception.tbag.items.Weapon;
 import nullpointerexception.tbag.model.GameManagerModel;
 import nullpointerexception.tbag.persist.DerbyDatabase;
+import nullpointerexception.tbag.rooms.Room;
 
 public class ItemExchangeManager extends Manager {
 	public ItemExchangeManager(ArrayList<String> commandParams, GameManagerModel gm, DerbyDatabase db) {
@@ -20,25 +21,54 @@ public class ItemExchangeManager extends Manager {
 	}
 	private void executeCommand() {
 		if (commandParams.get(0).equals("take") || commandParams.get(1).equals("pick-up")) {
-			for (int i = 1; i < commandParams.size(); i++) {
-				Item item = gm.getRooms().get(gm.getCurrentRoomIndex()).getInventory().getItem(commandParams.get(i));
-				
-				if (item != null) {
-					if (item.getType() != 5) {
-						gm.getPlayer().addItem(item);
-						db.moveItem(item.getItemId(), gm.getPlayer().getInventoryIndex());
+			if (commandParams.size() > 1) {
+				if (!commandParams.get(1).equals("all")) {
+					for (int i = 1; i < commandParams.size(); i++) {
+						Item item = gm.getRooms().get(gm.getCurrentRoomIndex()).getInventory().getItem(commandParams.get(i));
 						
-						gm.getRooms().get(gm.getCurrentRoomIndex()).removeItem(item);
-						
-						output.add("Added '" + item.getName() + "' to inventory. ");
-					}
-					else {
-						output.add("You try and struggle but can't seem to get it to budge. ");
+						if (item != null) {
+							if (item.getType() != 5) {
+								gm.getPlayer().addItem(item);
+								db.moveItem(item.getItemId(), gm.getPlayer().getInventoryIndex());
+								
+								gm.getRooms().get(gm.getCurrentRoomIndex()).removeItem(item);
+								
+								output.add("Added '" + item.getName() + "' to inventory. ");
+							}
+							else {
+								output.add("You try and struggle but can't seem to get it to budge. ");
+							}
+						}
+						else {
+							output.add("I don't think you have that item. ");
+						}
 					}
 				}
 				else {
-					output.add("I don't think you have that item. ");
+					Room room = gm.getRooms().get(gm.getCurrentRoomIndex());
+					int index = room.getInventory().getItems().size() - 1;
+					
+					while (index > -1) {
+						Item item = room.getInventory().getItems().get(index);
+						
+						if (item.getType() != 5) {
+							gm.getPlayer().addItem(item);
+							db.moveItem(item.getItemId(), gm.getPlayer().getInventoryIndex());
+							
+							room.removeItem(item);
+							
+							output.add("Added '" + item.getName() + "' to inventory. ");
+						}
+						else {
+							output.add("You try and struggle but can't seem to get it to budge. ");
+						}
+						
+						index -= 1;
+					}
 				}
+			}
+			else {
+				output.add(commandParams.get(0) + " what? ");
 			}
 		}
 		
@@ -47,66 +77,127 @@ public class ItemExchangeManager extends Manager {
 		
 		else if (commandParams.get(0).equals("drop")) {
 			boolean canDrop = false;
-			
-			for (int i = 1; i < commandParams.size(); i++) {
-				Item item = gm.getPlayer().getInventory().getItem(commandParams.get(i));
-				
-				if (item != null) {
-					if (item.getType() == 0 || item.getType() == 1 || item.getType() == 6) {
-						canDrop = true;
-					}
-					else {
-						if (item.getType() == 2) {
-							// Player must turn off light before dropping 
-							LightSource lsm = (LightSource)item;
-							
-							if (!lsm.getLit()) {
-								canDrop = true;
-							}
-							else {
-								output.add("It's never a good idea to leave the lights on. ");
-							}
-						}
-						else if (item.getType() == 3) {
-							// If player is wearing item, they must not be wearing it in order to drop it 
-							Clothing cm = (Clothing)item;
-							
-							if (!cm.getWearing()) {
-								canDrop = true;
-							}
-							else {
-								output.add("I think you need to take that off first. ");
-							}
-						}
-						else if (item.getType() == 4) {
-							Weapon wm = (Weapon)item;
-							
-							if (!wm.getEquipped()) {
-								canDrop = true;
-							}
-							else {
-								output.add("You should never drop your weapon while it is readied. ");
-							}
-						}
-					}
-					
-					if (canDrop) {
-						gm.getPlayer().removeItem(item);
-						gm.getRooms().get(gm.getCurrentRoomIndex()).addItem(item);
+			if (commandParams.size() > 1) {
+				if (!commandParams.get(1).equals("all")) {
+					for (int i = 1; i < commandParams.size(); i++) {
+						Item item = gm.getPlayer().getInventory().getItem(commandParams.get(i));
 						
-						db.moveItem(gm.getRooms().get(gm.getCurrentRoomIndex()).getInventoryId(), item.getItemId());
-						
-						output.add("Removed '" + item.getName() + "' from inventory. ");
+						if (item != null) {
+							if (item.getType() == 0 || item.getType() == 1 || item.getType() == 6) {
+								canDrop = true;
+							}
+							else {
+								if (item.getType() == 2) {
+									// Player must turn off light before dropping 
+									LightSource lsm = (LightSource)item;
+									
+									if (!lsm.getLit()) {
+										canDrop = true;
+									}
+									else {
+										output.add("It's never a good idea to leave the lights on. ");
+									}
+								}
+								else if (item.getType() == 3) {
+									// If player is wearing item, they must not be wearing it in order to drop it 
+									Clothing cm = (Clothing)item;
+									
+									if (!cm.getWearing()) {
+										canDrop = true;
+									}
+									else {
+										output.add("I think you need to take that off first. ");
+									}
+								}
+								else if (item.getType() == 4) {
+									Weapon wm = (Weapon)item;
+									
+									if (!wm.getEquipped()) {
+										canDrop = true;
+									}
+									else {
+										output.add("You should never drop your weapon while it is readied. ");
+									}
+								}
+							}
+							
+							if (canDrop) {
+								gm.getPlayer().removeItem(item);
+								gm.getRooms().get(gm.getCurrentRoomIndex()).addItem(item);
+								
+								db.moveItem(item.getItemId(), gm.getRooms().get(gm.getCurrentRoomIndex()).getInventoryId());
+
+								output.add("Removed '" + item.getName() + "' from inventory. ");
+
+								canDrop = false;
+							}
+						}
+						else {
+							output.add("I don't think you have that item. ");
+						}
 					}
 				}
 				else {
-					output.add("I don't think you have that item. ");
+					int index = gm.getPlayer().getInventory().getItems().size() - 1;
+
+					while (index > -1) {
+						Item item = gm.getPlayer().getInventory().getItems().get(index);
+
+						if (item.getType() == 0 || item.getType() == 1 || item.getType() == 6) {
+							canDrop = true;
+						}
+						else {
+							if (item.getType() == 2) {
+								// Player must turn off light before dropping 
+								LightSource lsm = (LightSource)item;
+
+								if (!lsm.getLit()) {
+									canDrop = true;
+								}
+								else {
+									output.add("It's never a good idea to leave the lights on. ");
+								}
+							}
+							else if (item.getType() == 3) {
+								// If player is wearing item, they must not be wearing it in order to drop it 
+								Clothing cm = (Clothing)item;
+
+								if (!cm.getWearing()) {
+									canDrop = true;
+								}
+								else {
+									output.add("I think you need to take that off first. ");
+								}
+							}
+							else if (item.getType() == 4) {
+								Weapon wm = (Weapon)item;
+
+								if (!wm.getEquipped()) {
+									canDrop = true;
+								}
+								else {
+									output.add("You should never drop your weapon while it is readied. ");
+								}
+							}
+						}
+
+						if (canDrop) {
+							gm.getPlayer().removeItem(item);
+							gm.getRooms().get(gm.getCurrentRoomIndex()).addItem(item);
+
+							db.moveItem(item.getItemId(), gm.getRooms().get(gm.getCurrentRoomIndex()).getInventoryId());
+
+							output.add("Removed '" + item.getName() + "' from inventory. ");
+
+							canDrop = false;
+						}
+						
+						index -= 1;
+					}
 				}
-				
-				canDrop = false;
 			}
 		}
-		
+
 		
 		
 		

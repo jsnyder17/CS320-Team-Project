@@ -126,7 +126,7 @@ public class GameManagerModel {
 	public void setOutput(ArrayList<String> outputList) {
 		for (String s : outputList) {
 			System.out.println("Adding " + s + " to output ... ");
-			output += (s + "\n");
+			output += (s + "\n\n");
 		}
 	}
 }

@@ -8,8 +8,12 @@ import nullpointerexception.tbag.model.GameManagerModel;
 import nullpointerexception.tbag.persist.DerbyDatabase;
 
 public class AttackManager extends Manager {
+	private CheckStatusManager csm;
+	
 	public AttackManager(ArrayList<String> commandParams, GameManagerModel gm, DerbyDatabase db) {
 		super(commandParams, gm, db);
+		
+		csm = new CheckStatusManager(gm, db);
 		
 		executeBattle();
 	}
@@ -40,11 +44,13 @@ public class AttackManager extends Manager {
 							weaponName = "fist";
 						}
 						
-						output.add(npcs.get(i).getName() + " attacked with " + weaponName + " for " + damage + " damage! ");
+						output.add("!!!! " + npcs.get(i).getName() + " attacked with " + weaponName + " for " + damage + " damage! !!!!");
 						
 						gm.getPlayer().setHealth(gm.getPlayer().getHealth() - damage);
 						
 						db.updatePlayer(gm.getPlayer());
+						
+						csm.checkHealthStatus();
 					}
 				}
 			}
@@ -74,6 +80,7 @@ public class AttackManager extends Manager {
 					db.updateNPC(npc);
 					
 					output.add("You dealt " + damage + " damage to " + npc.getName() + "! ");
+					output.add("They have " + npc.getHealth() + " hp left. ");
 					
 					if (npc.getHealth() > 0) {
 						// Turn NPC hostile if not already 
@@ -91,13 +98,11 @@ public class AttackManager extends Manager {
 								gm.getRooms().get(gm.getCurrentRoomIndex()).addItem(npc.getInventory().getItems().get(i));
 								db.moveItem(gm.getRooms().get(gm.getCurrentRoomIndex()).getInventoryId(), npc.getInventory().getItems().get(i).getItemId());
 							}
+							output.add("It looks like they've dropped some things. ");
 						}
-						
-						output.add("It looks like they've dropped some things. ");
 						
 						gm.getRooms().get(gm.getCurrentRoomIndex()).getNpcs().remove(npc);
 						db.removeNpc(npc);
-						
 					}
 				}
 				else {

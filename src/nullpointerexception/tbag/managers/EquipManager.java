@@ -27,6 +27,7 @@ public class EquipManager extends Manager {
 						db.updateWeaponItem(wm);
 						
 						gm.getPlayer().setEquippedWeaponIndex(gm.getPlayer().getInventory().findItem(wm));
+						db.updatePlayer(gm.getPlayer());
 						
 						output.add("You equipped the '" + wm.getName() + ".' It has " + wm.getDamage() + " damage. ");
 					}

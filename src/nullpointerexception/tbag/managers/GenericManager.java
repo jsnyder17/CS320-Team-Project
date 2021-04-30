@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import nullpointerexception.tbag.items.Item;
 import nullpointerexception.tbag.model.GameManagerModel;
 import nullpointerexception.tbag.persist.DerbyDatabase;
+import nullpointerexception.tbag.rooms.Room;
 
 public class GenericManager extends Manager {
 	public GenericManager(ArrayList<String> commandParams, GameManagerModel gm, DerbyDatabase db) {
@@ -34,7 +35,8 @@ public class GenericManager extends Manager {
 	private void examine() {
 		if (commandParams.size() < 3) {
 			if (commandParams.size() == 1) {
-				output.add(gm.getRooms().get(gm.getPlayer().getCurrentRoom() - 1).getDescription());
+				Room room = gm.getRooms().get(gm.getPlayer().getCurrentRoom() - 1);
+				output.add(room.getDescription());
 			}
 			else {
 				Item item = gm.getPlayer().getInventory().getItem(commandParams.get(1));
@@ -66,6 +68,6 @@ public class GenericManager extends Manager {
 	}
 	
 	private void clearScreen() {
-		//TODO - db.clearOutput
+		
 	}
 }

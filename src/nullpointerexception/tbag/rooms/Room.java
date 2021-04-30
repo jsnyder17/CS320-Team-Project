@@ -169,7 +169,8 @@ public class Room implements InventoryInterface {
     	return roomId;
     }
     public String getDescription() {
-        return description;
+    	calcDescription();
+        return description + "(" + inventory.getItems().size() + ") items. ";
     }
     public String getRoomDescription() {
     	return roomDescription;
@@ -394,7 +395,7 @@ public class Room implements InventoryInterface {
     	return fileOutputStr;
     }
     
-    private void calcDescription() {
+    public void calcDescription() {
     	//System.out.println("Calculating description ... ");
     	description = roomDescription;
     	
@@ -416,7 +417,7 @@ public class Room implements InventoryInterface {
     					description += ("and " + inventory.getItems().get(i).getName());
     				}
     				else {
-    					description += inventory.getItems().get(i).getName();
+    					description += " " + inventory.getItems().get(i).getName();
     				}
     			}
     		}
@@ -447,7 +448,7 @@ public class Room implements InventoryInterface {
     			}
     		}
     		
-    		description += "here. ";
+    		description += " here. ";
     	}
     	
     	//System.out.println(description);
@@ -495,6 +496,15 @@ public class Room implements InventoryInterface {
 		doorLocations.set(5, door);
 	}
 	public String toString() {
-		return ("ID: " + roomId + "	#: " + roomNumber + "	" + name);
+		String str = "ROOM #" + roomNumber + "\n";
+		str += "===========================================================================\n";
+		str += "ID: " + roomId + "Room	#: " + roomNumber + "	Name: " + name + "\n\n";
+		str += "------------ Inventory ------------\n";
+		for (Item item : inventory.getItems()) {
+			str += item.toString() + "\n";
+		}
+		str += "\n\n\n\n";
+		
+		return str;
 	}
 }

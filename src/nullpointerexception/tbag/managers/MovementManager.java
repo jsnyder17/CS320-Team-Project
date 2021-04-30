@@ -5,16 +5,20 @@ import java.util.Random;
 
 import nullpointerexception.tbag.model.GameManagerModel;
 import nullpointerexception.tbag.actors.Npc;
+import nullpointerexception.tbag.items.Clothing;
 import nullpointerexception.tbag.persist.DerbyDatabase;
 
-public class MovementManager {
-	private ArrayList<String> output;
+public class MovementManager extends Manager {
+	private CheckStatusManager csm;
+	
 	public MovementManager(ArrayList<String> commandParams, GameManagerModel gm, DerbyDatabase db) {
-		output = new ArrayList<String>();
+		super(commandParams, gm, db);
 		
-		executeCommand(commandParams, gm, db);
+		csm = new CheckStatusManager(gm, db);
+		
+		executeCommand();
 	}
-	private void executeCommand(ArrayList<String> commandParams, GameManagerModel gm, DerbyDatabase db) {
+	private void executeCommand() {
 		if (commandParams.size() == 2) {
 			boolean canMove = false;
 			Random rand = new Random();
@@ -58,7 +62,9 @@ public class MovementManager {
 		}
 	}
 	private void move(String direction, GameManagerModel gm, DerbyDatabase db) {
+		boolean moved = false;
 		int currentRoom = gm.getPlayer().getCurrentRoom();
+		
 		if (direction.equals("north")) {
 			if (gm.getRooms().get(gm.getCurrentRoomIndex()).getNorthDoor()!= null) {
 				if (gm.getRooms().get(gm.getCurrentRoomIndex()).getNorthDoor().getIsUnlocked()) {
@@ -76,6 +82,8 @@ public class MovementManager {
 					
 					gm.getRooms().get(gm.getCurrentRoomIndex()).getSouthDoor().setUsed(true);
 					db.updateDoor(gm.getRooms().get(gm.getCurrentRoomIndex()).getSouthDoor());
+					
+					moved = true;
 					
 				}
 				else {
@@ -103,6 +111,8 @@ public class MovementManager {
 					
 					gm.getRooms().get(gm.getCurrentRoomIndex()).getNorthDoor().setUsed(true);
 					db.updateDoor(gm.getRooms().get(gm.getCurrentRoomIndex()).getNorthDoor());
+					
+					moved = true;
 				}
 				else {
 					output.add("It's locked. ");
@@ -129,6 +139,8 @@ public class MovementManager {
 					
 					gm.getRooms().get(gm.getCurrentRoomIndex()).getWestDoor().setUsed(true);
 					db.updateDoor(gm.getRooms().get(gm.getCurrentRoomIndex()).getWestDoor());
+					
+					moved = true;
 				}
 				else {
 					output.add("It's locked. ");
@@ -155,6 +167,8 @@ public class MovementManager {
 					
 					gm.getRooms().get(gm.getCurrentRoomIndex()).getEastDoor().setUsed(true);
 					db.updateDoor(gm.getRooms().get(gm.getCurrentRoomIndex()).getEastDoor());
+					
+					moved = true;
 				}
 				else {
 					output.add("It's locked. ");
@@ -175,6 +189,8 @@ public class MovementManager {
 					
 					gm.getRooms().get(gm.getCurrentRoomIndex()).setPrevDiscovered(true);
 					db.updateRoom(gm.getRooms().get(gm.getCurrentRoomIndex()));
+					
+					moved = true;
 				}
 				else {
 					output.add("It's locked. ");
@@ -195,6 +211,8 @@ public class MovementManager {
 					
 					gm.getRooms().get(gm.getCurrentRoomIndex()).setPrevDiscovered(true);
 					db.updateRoom(gm.getRooms().get(gm.getCurrentRoomIndex()));
+					
+					moved = true;
 				}
 				else {
 					output.add("It's locked. ");
@@ -206,6 +224,11 @@ public class MovementManager {
 		}
 		else {
 			output.add("I don't know what direction '" + direction + "' is ... ");
+		}
+		
+		// If moved, check the player's mask status 
+		if (moved) {
+			csm.checkMaskStatus();
 		}
 	}
 	

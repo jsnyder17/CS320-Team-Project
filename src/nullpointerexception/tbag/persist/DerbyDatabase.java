@@ -39,19 +39,19 @@ public class DerbyDatabase implements IDatabase {
 
 	// The main method creates the database tables and loads the initial data.
 	public static void main(String[] args) throws IOException {
-		System.out.println("Creating tables...");
+		//System.out.println("Creating tables...");
 		DerbyDatabase db = new DerbyDatabase();
 		db.dropTables();
 		db.createTables();
 
-		System.out.println("Loading initial data...");
+		//System.out.println("Loading initial data...");
 		db.loadInitialData();
 
-		System.out.println("TBAG DB successfully initialized!");
-		
+		//System.out.println("TBAG DB successfully initialized!");
+
 		ArrayList<Npc> npcs = db.getNpcs(-1);
 		for (Npc npc : npcs) {
-			System.out.println(npc.toString());
+			//System.out.println(npc.toString());
 		}
 	}
 
@@ -65,103 +65,119 @@ public class DerbyDatabase implements IDatabase {
 				// dropTables();
 
 				try {
-					stmt = conn.prepareStatement("create table itemsList(item_id int primary key generated always as identity (start with 1, increment by 1), item_type int not null)");
+					stmt = conn.prepareStatement(
+							"create table itemsList(item_id int primary key generated always as identity (start with 1, increment by 1), item_type int not null)");
 
 					stmt.executeUpdate();
 
-					// System.out.println("itemsList table created. ");
+					// //System.out.println("itemsList table created. ");
 
-					stmt = conn.prepareStatement("create table itemsMap(item_id int constraint itemsMap_item_id references itemsList, item_location int)");
-
-					stmt.executeUpdate();
-
-					// System.out.println("itemsMap table created. ");
-
-					stmt = conn.prepareStatement("create table baseItems(item_id int constraint baseItems_item_id references itemsList, item_name varchar(40), isUsed boolean)");
+					stmt = conn.prepareStatement(
+							"create table itemsMap(item_id int constraint itemsMap_item_id references itemsList, item_location int)");
 
 					stmt.executeUpdate();
 
-					// System.out.println("baseItems table created. ");
+					// //System.out.println("itemsMap table created. ");
 
-					stmt = conn.prepareStatement("create table keyItems(item_id int constraint keyItems_item_id references itemsList, item_name varchar(40), isUsed boolean)");
-
-					stmt.executeUpdate();
-
-					// System.out.println("keyItems table created. ");
-
-					stmt = conn.prepareStatement("create table lsItems(item_id int constraint lsItems_item_id references itemsList, item_name varchar(40), isUsed boolean, isLit boolean)");
+					stmt = conn.prepareStatement(
+							"create table baseItems(item_id int constraint baseItems_item_id references itemsList, item_name varchar(40), isUsed boolean)");
 
 					stmt.executeUpdate();
 
-					// System.out.println("lsItems table created. ");
+					// //System.out.println("baseItems table created. ");
 
-					stmt = conn.prepareStatement("create table clothingItems(item_id int constraint clothingItems_item_id references itemsList, item_name varchar(40), isUsed boolean, isWearing boolean)");
-
-					stmt.executeUpdate();
-
-					// System.out.println("clothingItems table created. ");
-
-					stmt = conn.prepareStatement("create table weaponItems(item_id int constraint weaponItems_item_id references itemsList, item_name varchar(40), isUsed boolean, damage int, isEquipped boolean)");
+					stmt = conn.prepareStatement(
+							"create table keyItems(item_id int constraint keyItems_item_id references itemsList, item_name varchar(40), isUsed boolean)");
 
 					stmt.executeUpdate();
 
-					// System.out.println("weaponItems table created. ");
+					// //System.out.println("keyItems table created. ");
 
-					stmt = conn.prepareStatement("create table frpItems(item_id int constraint frpItems_item_id references itemsList, item_name varchar(40), isUsed boolean)");
-
-					stmt.executeUpdate();
-
-					// System.out.println("frpItems table created. ");
-
-					stmt = conn.prepareStatement("create table orbItems(item_id int constraint orbItems_item_id references itemsList, item_name varchar(40), isUsed boolean)");
+					stmt = conn.prepareStatement(
+							"create table lsItems(item_id int constraint lsItems_item_id references itemsList, item_name varchar(40), isUsed boolean, isLit boolean)");
 
 					stmt.executeUpdate();
 
-					// System.out.println("orbItems table created. ");
+					// //System.out.println("lsItems table created. ");
 
-					stmt = conn.prepareStatement("create table playerList(actor_id int primary key generated always as identity (start with 1, increment by 1), actor_name varchar(40), current_room int, health int, vaccineUseCount int, equippedWeaponIndex int, inventory_index int)");
-
-					stmt.executeUpdate();
-
-					// System.out.println("playerList table created. ");
-
-					stmt = conn.prepareStatement("create table npcList(npc_id int primary key generated always as identity (start with 1, increment by 1), actor_name varchar(40), current_room int, health int, equippedWeaponIndex int, isHostile boolean, inventory_index int)");
+					stmt = conn.prepareStatement(
+							"create table clothingItems(item_id int constraint clothingItems_item_id references itemsList, item_name varchar(40), isUsed boolean, isWearing boolean)");
 
 					stmt.executeUpdate();
 
-					// System.out.println("npcList table created. ");
+					// //System.out.println("clothingItems table created. ");
 
-					stmt = conn.prepareStatement("create table doorsList(door_id int primary key generated always as identity (start with 1, increment by 1), is_unlocked boolean, door_desc varchar(255), isOneWay boolean, isUsed boolean, doorKeyName varchar(255), roomCoord1 int, roomCoord2 int)");
-
-					stmt.executeUpdate();
-
-					// System.out.println("doorsList table created. ");
-
-					stmt = conn.prepareStatement("create table roomsList(room_id int primary key generated always as identity (start with 1, increment by 1), room_name varchar(40), room_desc long varchar,  prevDiscovered boolean, secretDiscovered boolean, isDark boolean, inventory int, door_north int, door_south int, door_east int, door_west int, door_up int, door_down int)");
+					stmt = conn.prepareStatement(
+							"create table weaponItems(item_id int constraint weaponItems_item_id references itemsList, item_name varchar(40), isUsed boolean, damage int, isEquipped boolean)");
 
 					stmt.executeUpdate();
 
-					// System.out.println("roomsList table created. ");
+					// //System.out.println("weaponItems table created. ");
+
+					stmt = conn.prepareStatement(
+							"create table frpItems(item_id int constraint frpItems_item_id references itemsList, item_name varchar(40), isUsed boolean)");
+
+					stmt.executeUpdate();
+
+					// //System.out.println("frpItems table created. ");
+
+					stmt = conn.prepareStatement(
+							"create table orbItems(item_id int constraint orbItems_item_id references itemsList, item_name varchar(40), isUsed boolean)");
+
+					stmt.executeUpdate();
+
+					// //System.out.println("orbItems table created. ");
+
+					stmt = conn.prepareStatement(
+							"create table playerList(actor_id int primary key generated always as identity (start with 1, increment by 1), actor_name varchar(40), current_room int, health int, vaccineUseCount int, equippedWeaponIndex int, inventory_index int)");
+
+					stmt.executeUpdate();
+
+					// //System.out.println("playerList table created. ");
+
+					stmt = conn.prepareStatement(
+							"create table npcList(npc_id int primary key generated always as identity (start with 1, increment by 1), actor_name varchar(40), current_room int, health int, equippedWeaponIndex int, isHostile boolean, inventory_index int)");
+
+					stmt.executeUpdate();
+
+					// //System.out.println("npcList table created. ");
+
+					stmt = conn.prepareStatement(
+							"create table doorsList(door_id int primary key generated always as identity (start with 1, increment by 1), is_unlocked boolean, door_desc varchar(255), isOneWay boolean, isUsed boolean, doorKeyName varchar(255), roomCoord1 int, roomCoord2 int)");
+
+					stmt.executeUpdate();
+
+					// //System.out.println("doorsList table created. ");
+
+					stmt = conn.prepareStatement(
+							"create table roomsList(room_id int primary key generated always as identity (start with 1, increment by 1), room_name varchar(40), room_desc long varchar,  prevDiscovered boolean, secretDiscovered boolean, isDark boolean, inventory int, door_north int, door_south int, door_east int, door_west int, door_up int, door_down int)");
+
+					stmt.executeUpdate();
+
+					// //System.out.println("roomsList table created. ");
 
 					stmt = conn.prepareStatement("create table outputList(output_data long varchar)");
 
 					stmt.executeUpdate();
 
-					// System.out.println("output table created. ");
+					// //System.out.println("output table created. ");
 
-					stmt = conn.prepareStatement("create table userInfo(user_id int primary key generated always as identity (start with 1, increment by 1), user_name varchar(40), password varchar(40))");
-
-					stmt.executeUpdate();
-
-					// System.out.println("userInfo table created. ");
-
-					stmt = conn.prepareStatement("create table npcCombatDialogList(npc_id int constraint npcCombatDialogList_npc_id references npcList, dialogue varchar(6500))");
+					stmt = conn.prepareStatement(
+							"create table userInfo(user_id int primary key generated always as identity (start with 1, increment by 1), user_name varchar(40), password varchar(40))");
 
 					stmt.executeUpdate();
 
-					// System.out.println("npcCombatDialogList table created. ");
+					// //System.out.println("userInfo table created. ");
 
-					stmt = conn.prepareStatement("create table npcNormalDialogList(npc_id int constraint npcNormalDialogList_npc_id references npcList, dialogue varchar(6500))");
+					stmt = conn.prepareStatement(
+							"create table npcCombatDialogList(npc_id int constraint npcCombatDialogList_npc_id references npcList, dialogue varchar(6500))");
+
+					stmt.executeUpdate();
+
+					// //System.out.println("npcCombatDialogList table created. ");
+
+					stmt = conn.prepareStatement(
+							"create table npcNormalDialogList(npc_id int constraint npcNormalDialogList_npc_id references npcList, dialogue varchar(6500))");
 
 					stmt.executeUpdate();
 				} finally {
@@ -207,7 +223,7 @@ public class DerbyDatabase implements IDatabase {
 						stmt.executeUpdate();
 					}
 
-					// System.out.println("Dropped all tables. ");
+					// //System.out.println("Dropped all tables. ");
 				} finally {
 					DBUtil.closeQuietly(stmt);
 				}
@@ -308,7 +324,7 @@ public class DerbyDatabase implements IDatabase {
 					}
 
 					if (!found) {
-						// System.out.println("No keys were found in the database. ");
+						// //System.out.println("No keys were found in the database. ");
 					}
 
 					return itemList;
@@ -360,7 +376,7 @@ public class DerbyDatabase implements IDatabase {
 					}
 
 					if (!found) {
-						// System.out.println("No clothing was found in the database. ");
+						// //System.out.println("No clothing was found in the database. ");
 					}
 
 					return itemList;
@@ -405,7 +421,7 @@ public class DerbyDatabase implements IDatabase {
 						Clothing item = new Clothing();
 						int index = 1;
 
-						// System.out.println("Item id = " + resultSet.getInt(index));
+						// //System.out.println("Item id = " + resultSet.getInt(index));
 						item.setItemId(resultSet.getInt(index++));
 						item.setName(resultSet.getString(index++));
 						item.setUsed(resultSet.getBoolean(index++));
@@ -415,7 +431,7 @@ public class DerbyDatabase implements IDatabase {
 					}
 
 					if (!found) {
-						// System.out.println("No clothing was found in the database. ");
+						// //System.out.println("No clothing was found in the database. ");
 					}
 
 					return itemList;
@@ -583,9 +599,9 @@ public class DerbyDatabase implements IDatabase {
 
 						Npc npc = new Npc();
 						loadNpc(npc, resultSet, 1);
-						
-						System.out.println("Loaded: " + npc.toString());
-						
+
+						//System.out.println("Loaded: " + npc.toString());
+
 						npcList.add(npc);
 					}
 
@@ -622,7 +638,7 @@ public class DerbyDatabase implements IDatabase {
 						itemList.add(item);
 					}
 					if (!found) {
-						// System.out.println("No items were found in the database. ");
+						// //System.out.println("No items were found in the database. ");
 					}
 
 					return itemList;
@@ -676,7 +692,7 @@ public class DerbyDatabase implements IDatabase {
 
 		String desc = resultSet.getString(index++);
 
-		// System.out.println("Read: " + desc);
+		// //System.out.println("Read: " + desc);
 
 		room.setRoomDescription(desc);
 		room.setPrevDiscovered(resultSet.getBoolean(index++));
@@ -746,7 +762,7 @@ public class DerbyDatabase implements IDatabase {
 						found = true;
 					}
 					if (!found) {
-						// System.out.println("No player found. ");
+						// //System.out.println("No player found. ");
 					}
 					return player;
 				} finally {
@@ -1270,12 +1286,20 @@ public class DerbyDatabase implements IDatabase {
 			public Boolean execute(Connection conn) throws SQLException {
 				PreparedStatement stmt = null;
 				try {
+					stmt = conn.prepareStatement("delete from npcCombatDialogList where npc_id=?");
+					stmt.setInt(1, n.getNpcId());
+					stmt.executeUpdate();
+					
+					stmt = conn.prepareStatement("delete from npcNormalDialogList where npc_id=?");
+					stmt.setInt(1, n.getNpcId());
+					stmt.executeUpdate();
+					
 					stmt = conn.prepareStatement("delete from npcList where npc_id=?");
-
-					stmt.setInt(1, n.getActorId());
+					stmt.setInt(1, n.getNpcId());
 					stmt.executeUpdate();
 
 					return true;
+					
 				} finally {
 					DBUtil.closeQuietly(stmt);
 				}
@@ -1672,7 +1696,7 @@ public class DerbyDatabase implements IDatabase {
 						Orb item = new Orb();
 						int index = 1;
 
-						// System.out.println("Item id = " + resultSet.getInt(index));
+						// //System.out.println("Item id = " + resultSet.getInt(index));
 						item.setItemId(resultSet.getInt(index++));
 						item.setName(resultSet.getString(index++));
 						item.setUsed(resultSet.getBoolean(index++));
@@ -1681,7 +1705,7 @@ public class DerbyDatabase implements IDatabase {
 					}
 
 					if (!found) {
-						// System.out.println("No orb was found in the database. ");
+						// //System.out.println("No orb was found in the database. ");
 					}
 
 					return itemList;
@@ -1726,7 +1750,7 @@ public class DerbyDatabase implements IDatabase {
 						Weapon item = new Weapon();
 						int index = 1;
 
-						// System.out.println("Item id = " + resultSet.getInt(index));
+						// //System.out.println("Item id = " + resultSet.getInt(index));
 						item.setItemId(resultSet.getInt(index++));
 						item.setName(resultSet.getString(index++));
 						item.setUsed(resultSet.getBoolean(index++));
@@ -1737,7 +1761,7 @@ public class DerbyDatabase implements IDatabase {
 					}
 
 					if (!found) {
-						// System.out.println("No weapon was found in the database. ");
+						// //System.out.println("No weapon was found in the database. ");
 					}
 
 					return itemList;
@@ -1938,7 +1962,7 @@ public class DerbyDatabase implements IDatabase {
 							"update playerList set current_room=?, health=?, vaccineUseCount=?, equippedWeaponIndex=?, actor_name=? where actor_id=?");
 
 					stmt.setInt(1, player.getCurrentRoom());
-					System.out.println("Set current room to " + player.getCurrentRoom());
+					//System.out.println("Set current room to " + player.getCurrentRoom());
 
 					stmt.setInt(2, player.getHealth());
 					stmt.setInt(3, player.getVaccineUseCount());
@@ -1960,8 +1984,7 @@ public class DerbyDatabase implements IDatabase {
 			public Boolean execute(Connection conn) throws SQLException {
 				PreparedStatement stmt = null;
 				try {
-					stmt = conn.prepareStatement(
-							"update npcList set actor_name=?, current_room=?, health=?, isHostile=? where npc_id=?");
+					stmt = conn.prepareStatement("update npcList set actor_name=?, current_room=?, health=?, isHostile=? where npc_id=?");
 
 					stmt.setString(1, npc.getName());
 					stmt.setInt(2, npc.getCurrentRoom());
@@ -1971,6 +1994,7 @@ public class DerbyDatabase implements IDatabase {
 					stmt.executeUpdate();
 
 					return true;
+					
 				} finally {
 					DBUtil.closeQuietly(stmt);
 				}
@@ -1986,7 +2010,7 @@ public class DerbyDatabase implements IDatabase {
 	public void loadFrp(FinalRoomPuzzle frp, ResultSet resultSet, int index) throws SQLException {
 		int id = resultSet.getInt(index++);
 
-		// System.out.println("Read ID of " + id);
+		// //System.out.println("Read ID of " + id);
 
 		frp.setItemId(id);
 		frp.setName(resultSet.getString(index++));
@@ -2010,11 +2034,11 @@ public class DerbyDatabase implements IDatabase {
 		npc.setRoomNumber(resultSet.getInt(index++));
 		npc.setHealth(resultSet.getInt(index++));
 		npc.setEquippedWeaponIndex(resultSet.getInt(index++));
-		
+
 		boolean hostile = resultSet.getBoolean(index++);
-		System.out.println("This NPC is hostile : " + hostile);
+		//System.out.println("This NPC is hostile : " + hostile);
 		npc.setHostile(hostile);
-		
+
 		npc.setInventoryIndex(resultSet.getInt(index++));
 
 		npc.setCombatDialogue(getNpcCombatDialogue(npc.getName()));
@@ -2087,7 +2111,7 @@ public class DerbyDatabase implements IDatabase {
 					}
 					insertItem.executeBatch();
 
-					//// System.out.println("itemsList table populated. ");
+					//// //System.out.println("itemsList table populated. ");
 
 					insertDoor = conn.prepareStatement(
 							"insert into doorsList(is_unlocked, door_desc, isOneWay, isUsed, doorKeyName, roomCoord1, roomCoord2) values(?,?,?,?,?,?,?)");
@@ -2120,25 +2144,23 @@ public class DerbyDatabase implements IDatabase {
 						insertNpc.setInt(2, npc.getCurrentRoom());
 						insertNpc.setInt(3, npc.getHealth());
 						insertNpc.setInt(4, npc.getEquippedWeaponIndex());
-						
+
 						boolean hostile = npc.getHostile();
-						
-						System.out.println("Adding hosilte npc: " + hostile);
-						
+
+						//System.out.println("Adding hosilte npc: " + hostile);
+
 						insertNpc.setBoolean(5, npc.getHostile());
 						insertNpc.setInt(6, npc.getInventoryIndex());
 						insertNpc.addBatch();
 					}
 					insertNpc.executeBatch();
-					
-					/*
-					ArrayList<Npc> npcs = getNpcs(-1);
-					for (Npc npc : npcs) {
-						System.out.println(npc.toString());
-					}
-					*/
 
-					//// System.out.println("npcList table populated. ");
+					/*
+					 * ArrayList<Npc> npcs = getNpcs(-1); for (Npc npc : npcs) {
+					 * //System.out.println(npc.toString()); }
+					 */
+
+					//// //System.out.println("npcList table populated. ");
 
 					insertFrp = conn.prepareStatement("insert into frpItems(item_id, item_name, isUsed) values(?,?,?)");
 					for (FinalRoomPuzzle frp : frpList) {
@@ -2149,7 +2171,7 @@ public class DerbyDatabase implements IDatabase {
 					}
 					insertFrp.executeBatch();
 
-					//// System.out.println("frpList table populated. ");
+					//// //System.out.println("frpList table populated. ");
 
 					insertLocation = conn.prepareStatement("insert into itemsMap(item_id, item_location) values(?,?)");
 					int i = 0;
@@ -2162,7 +2184,7 @@ public class DerbyDatabase implements IDatabase {
 						x++;
 					}
 					insertLocation.executeBatch();
-					//// System.out.println("itemsMap table populated. ");
+					//// //System.out.println("itemsMap table populated. ");
 
 					insertClothing = conn.prepareStatement(
 							"insert into clothingItems(item_id, item_name, isUsed, isWearing) values(?,?,?,?)");
@@ -2175,7 +2197,7 @@ public class DerbyDatabase implements IDatabase {
 					}
 					insertClothing.executeBatch();
 
-					//// System.out.println("clothingList table populated. ");
+					//// //System.out.println("clothingList table populated. ");
 
 					insertKeys = conn
 							.prepareStatement("insert into keyItems(item_id, item_name, isUsed) values(?,?,?)");
@@ -2187,13 +2209,13 @@ public class DerbyDatabase implements IDatabase {
 					}
 					insertKeys.executeBatch();
 
-					//// System.out.println("keysList table populated. ");
+					//// //System.out.println("keysList table populated. ");
 
 					insertWeapon = conn.prepareStatement(
 							"insert into weaponItems(item_id, item_name, isUsed, damage, isEquipped) values(?,?,?,?,?)");
 					for (Weapon item : weaponList) {
-						// System.out.println("Adding " + item.toString() + "... ");
-						// System.out.println("Item id: " + item.getItemId());
+						// //System.out.println("Adding " + item.toString() + "... ");
+						// //System.out.println("Item id: " + item.getItemId());
 						insertWeapon.setInt(1, item.getItemId());
 						insertWeapon.setString(2, item.getName());
 						insertWeapon.setBoolean(3, item.getUsed());
@@ -2203,7 +2225,7 @@ public class DerbyDatabase implements IDatabase {
 					}
 					insertWeapon.executeBatch();
 
-					// System.out.println("weaponList table populated. ");
+					// //System.out.println("weaponList table populated. ");
 
 					insertLights = conn
 							.prepareStatement("insert into lsItems(item_id, item_name, isUsed, isLit) values(?,?,?,?)");
@@ -2216,7 +2238,7 @@ public class DerbyDatabase implements IDatabase {
 					}
 					insertLights.executeBatch();
 
-					//// System.out.println("lightsList table populated. ");
+					//// //System.out.println("lightsList table populated. ");
 
 					insertPlayer = conn.prepareStatement(
 							"insert into playerList(actor_name, current_room, health, vaccineUseCount, equippedWeaponIndex, inventory_index) values(?,?,?,?,?,?)");
@@ -2231,19 +2253,14 @@ public class DerbyDatabase implements IDatabase {
 					}
 					insertPlayer.executeBatch();
 
-					//// System.out.println("playerList table populated. ");
+					//// //System.out.println("playerList table populated. ");
 
 					insertRooms = conn.prepareStatement(
 							"insert into roomsList(room_name, room_desc, prevDiscovered, secretDiscovered, isDark, inventory, door_north, door_south, door_east, door_west, door_up, door_down) values(?,?,?,?,?,?,?,?,?,?,?,?)");
 					for (Room room : roomList) {
 						// insertRooms.setInt(1, room.getRoomNumber());
 						insertRooms.setString(1, room.getName());
-
-						String desc = room.getRoomDescription();
-						System.out.println("Writing: " + room.getRoomDescription()
-								+ "----------------------------------------------------------------");
-
-						insertRooms.setString(2, desc);
+						insertRooms.setString(2, room.getRoomDescription());
 						insertRooms.setBoolean(3, room.getPrevDiscovered());
 						insertRooms.setBoolean(4, room.getSecretDiscovered());
 						insertRooms.setBoolean(5, room.getIsDark());
@@ -2257,7 +2274,7 @@ public class DerbyDatabase implements IDatabase {
 						insertRooms.addBatch();
 					}
 					insertRooms.executeBatch();
-					//// System.out.println("RoomList table populated. ");
+					//// //System.out.println("RoomList table populated. ");
 
 					insertCombatDialog = conn
 							.prepareStatement("insert into npcCombatDialogList(npc_id, dialogue) values(?,?)");
@@ -2267,7 +2284,7 @@ public class DerbyDatabase implements IDatabase {
 						insertCombatDialog.addBatch();
 					}
 					insertCombatDialog.executeBatch();
-					//// System.out.println("npCombatDialogList table populated. ");
+					//// //System.out.println("npCombatDialogList table populated. ");
 
 					insertNormalDialog = conn
 							.prepareStatement("insert into npcNormalDialogList(npc_id, dialogue) values(?,?)");
@@ -2277,19 +2294,19 @@ public class DerbyDatabase implements IDatabase {
 						insertNormalDialog.addBatch();
 					}
 					insertNormalDialog.executeBatch();
-					//// System.out.println("npcNormalDialogList table populated. ");
+					//// //System.out.println("npcNormalDialogList table populated. ");
 
 					insertOrbItems = conn
 							.prepareStatement("insert into orbItems(item_id, item_name, isUsed) values(?,?,?)");
 					for (Orb orb : orbList) {
-						// System.out.println("Adding orb: " + orb.toString() + " ... ");
+						// //System.out.println("Adding orb: " + orb.toString() + " ... ");
 						insertOrbItems.setInt(1, orb.getItemId());
 						insertOrbItems.setString(2, orb.getName());
 						insertOrbItems.setBoolean(3, orb.getUsed());
 						insertOrbItems.addBatch();
 					}
 					insertOrbItems.executeBatch();
-					// System.out.println("orbItems inserted into orbItems");
+					// //System.out.println("orbItems inserted into orbItems");
 
 				} finally {
 					DBUtil.closeQuietly(insertItem);
@@ -2378,49 +2395,49 @@ public class DerbyDatabase implements IDatabase {
 	public boolean testQueries() {
 		// test getPlayer
 		Player player = getPlayer();
-		// System.out.println(player.getName() + " got player");
+		// //System.out.println(player.getName() + " got player");
 
 		// test movePlayer
 		movePlayer(2);
-		// System.out.println("Player moved");
+		// //System.out.println("Player moved");
 
 		// test setPlayerHealth
 		setPlayerHealth(90);
-		// System.out.println("Changed Player Health");
+		// //System.out.println("Changed Player Health");
 
 		// test setPlayerEquippedWeaponIndex
 		setPlayerEquippedWeaponIndex(5);
-		// System.out.println("Changed Player weapon index");
+		// //System.out.println("Changed Player weapon index");
 
 		player = getPlayer();
-		// System.out.println(player.getCurrentRoom() + " " + player.getHealth() + " "+
+		// //System.out.println(player.getCurrentRoom() + " " + player.getHealth() + " "+
 		// player.getEquippedWeaponIndex());
 
 		// unlock door
 		ArrayList<Door> doors = getDoors();
-		// System.out.println(doors.get(0).getIsUnlocked());
+		// //System.out.println(doors.get(0).getIsUnlocked());
 		unlockDoor(1);
 		doors = getDoors();
-		// System.out.println(doors.get(0).getIsUnlocked());
+		// //System.out.println(doors.get(0).getIsUnlocked());
 
 		// test getIndividualNPC
 		Npc npc = getIndividualNPC("wild_ape");
-		// System.out.println(npc.getName());
+		// //System.out.println(npc.getName());
 
 		// test setNpcHealth
 		setNpcHealth("wild_ape", 69);
 		npc = getIndividualNPC("wild_ape");
-		// System.out.println(npc.getHealth());
+		// //System.out.println(npc.getHealth());
 
 		// moveItem
 		Item map = getItem("map");
 		moveItem(9, 10);
 		boolean test = doesHaveItem(9, 10);
-		// System.out.println(test);
+		// //System.out.println(test);
 
 		// test GgetAllItemsFromLocation
 		ArrayList<Item> items = getAllItemsFromLacation(1);
-		// System.out.println(items);
+		// //System.out.println(items);
 		return true;
 	}
 

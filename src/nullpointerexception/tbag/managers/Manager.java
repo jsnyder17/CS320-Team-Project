@@ -18,6 +18,13 @@ public class Manager {
 		this.gm = gm;
 		this.db = db;
 	}
+	public Manager(GameManagerModel gm, DerbyDatabase db) {
+		output = new ArrayList<String>();
+		
+		commandParams = null;
+		this.gm = gm;
+		this.db = db;
+	}
 	
 	public ArrayList<String> getOutput() {
 		return output;

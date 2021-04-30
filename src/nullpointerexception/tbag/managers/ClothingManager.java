@@ -11,6 +11,8 @@ public class ClothingManager extends Manager {
 	public ClothingManager(ArrayList<String> commandParams, GameManagerModel gm, DerbyDatabase db) {
 		super(commandParams, gm, db);
 		
+		System.out.println("ClothingManager constructor called. ");
+		
 		executeCommand();
 	}
 	
@@ -25,22 +27,23 @@ public class ClothingManager extends Manager {
 						
 						if (!clothing.getWearing()) {
 							clothing.setWearing(true);
-							gm.getOutputHistory().add("You put on the '" + clothing.getName() + ".'");
+							db.updateClothingItem(clothing);
+							output.add("You put on the '" + clothing.getName() + ".'");
 						}
 						else {
-							gm.getOutputHistory().add("You're already wearing that. ");
+							output.add("You're already wearing that. ");
 						}
 					}
 					else {
-						gm.getOutputHistory().add("That's not clothing. ");
+						output.add("That's not clothing. ");
 					}
 				}
 				else {
-					gm.getOutputHistory().add("I don't think you have that item. ");
+					output.add("I don't think you have that item. ");
 				}
 			}
 			else {
-				gm.getOutputHistory().add("Put on what? ");
+				output.add("Put on what? ");
 			}
 		}
 		
@@ -56,19 +59,20 @@ public class ClothingManager extends Manager {
 						
 						if (clothing.getWearing()) {
 							clothing.setWearing(false);
-							gm.getOutputHistory().add("You took off '" + clothing.getName() + ".' ");
+							db.updateClothingItem(clothing);
+							output.add("You took off '" + clothing.getName() + ".' ");
 						}
 						else {
-							gm.getOutputHistory().add("You're not wearing that. ");
+							output.add("You're not wearing that. ");
 						}
 					}
 					else {
-						gm.getOutputHistory().add("That's not clothing. ");
+						output.add("That's not clothing. ");
 					}
 				}
 			}
 			else {
-				gm.getOutputHistory().add("Take off what? ");
+				output.add("Take off what? ");
 			}
 		}
 	}

@@ -83,6 +83,8 @@ public class GameManagerController {
             }
         }
 
+        player.calcStatString();
+        
         gm.setPlayer(player);
         gm.setRooms(rooms);
         gm.setCurrentRoomIndex(player.getCurrentRoom() - 1);
@@ -99,12 +101,12 @@ public class GameManagerController {
 	
 	public void doGame() {
 		ArrayList<String> commandParams = new ArrayList<String>();
-		ArrayList<String> outputList = new ArrayList<String>();
-
+		
+		outputList.add("> " + command);
+		
 		// Npc attacks
 	    AttackManager am = new AttackManager(null, gm, db);
 	    addoutputList(am.getOutput());
-	    checkHealthStatus();
 		
 		// Command entry 
 		CommandManager cm = new CommandManager();
@@ -118,8 +120,6 @@ public class GameManagerController {
 			MovementManager mm = new MovementManager(commandParams, gm, db);
 			
 			addoutputList(mm.getOutput());
-			
-			checkMaskStatus();
 		}
 		else if (commandParams.get(0).equals("take") || commandParams.get(0).equals("pick-up") || commandParams.get(0).equals("drop") || commandParams.get(0).equals("give")) {
 			ItemExchangeManager iem = new ItemExchangeManager(commandParams, gm, db);
@@ -178,43 +178,6 @@ public class GameManagerController {
 		}
 	}
 	
-	private void checkMaskStatus() {
-		Clothing mask = (Clothing)gm.getPlayer().getInventory().getItem("mask");
-		
-		if (mask != null) {
-			if (!mask.getWearing()) {
-				// check vaccine status
-				outputList.add("You can almost taste the dirtiness of the air as you enter. ");
-				
-				// Decrement player health if vaccine has not been used
-				if (gm.getPlayer().getVaccineUseCount() < 4) {
-					// Decrement player health
-					gm.getPlayer().decrementHealth();
-					db.updatePlayer(gm.getPlayer());
-					checkHealthStatus();
-				}
-			}
-			else {
-				outputList.add("You feel protected by your mask as you enter. ");
-			}
-		}
-		else {
-			// Decrement player health if vaccine has not been used
-			if (gm.getPlayer().getVaccineUseCount() < 4) {
-				// Decrement player health
-				gm.getPlayer().decrementHealth();
-				db.updatePlayer(gm.getPlayer());
-				
-				outputList.add("You can almost taste the dirtiness of the air as you enter. ");
-				
-				checkHealthStatus();
-			}
-		}
-	}
-	private void checkHealthStatus() {
-		
-	}
-	
 	private void updateEquippedWeaponIndex() {
 		for (Item item : gm.getPlayer().getInventory().getItems()) {
 			if (item.getType() == 4) {
@@ -231,15 +194,13 @@ public class GameManagerController {
 	
 	private void displayGameState() {
         for (Room room : gm.getRooms()) {
-        	System.out.println(room.getRoomDescription());
-        	System.out.println("====== " + room.getName() + " INVENTORY ======");
-        	for (Item i : room.getInventory().getItems()) {
-        		System.out.println(i.toString());
-        	}
+        	System.out.println(room.toString());
+        	
         	System.out.println("\nMy npcs are ... ");
         	for (Npc npc : room.getNpcs()) {
         		System.out.println(npc.toString());
         	}
+        	
         	System.out.println("\n\n");
         	//System.out.println(room.getInventory().getItems().size() + " items in this inventory. ");
         }

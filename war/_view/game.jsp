@@ -8,6 +8,13 @@
 <link rel="stylesheet" type="text/css" href="gameCSS.css">
 </head>
 <body>
+	<script>
+		function scrollDown() {
+			document.getElementById("outputTextArea").scrollTop = document.getElementById("outputTextArea").scrollHeight;
+		}
+		window.onload = scrollDown;
+	</script>
+	
 	<form action="${pageContext.servletContext.contextPath}/game"
 		method="post">
 		<textarea readonly id="playerStatsTextArea" name="playerStatsTextArea" class="playerstats"><c:if test="${! empty player}">${player.statString}</c:if></textarea>

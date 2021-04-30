@@ -167,47 +167,24 @@ public class Npc extends Actor {
 		
 		return fileOutputStr;
 	}
-	
+
 	public String toString() {
-		String str = this.npcId + "      " + super.getName() + "      " + super.getCurrentRoom() + "      " + super.getHealth() + "      " + super.getEquippedWeaponIndex() + "      " + hostile;
-		
-		str += "\n====== " + super.getName() + " INVENTROY ======\n";
+		String str = "NPC: '" + super.getName() + "'\n";
+		str += "======================================================\n";
+		str += this.npcId + "      " + super.getName() + "      " + super.getCurrentRoom() + "      " + super.getHealth() + "      " + super.getEquippedWeaponIndex() + "      " + hostile;
+		str += "\n\n---------- " + super.getName() + " Inventory ----------\n";
 		for (Item i : super.getInventory().getItems()) {
-			switch (i.getType()) {
-				case 0:
-					str += i.toString();
-					break;
-				case 1:
-					str += i.toString();
-					break;
-				case 2:
-					str += (LightSource)i;
-					break;
-				case 3:
-					str += (Clothing)i;
-					break;
-				case 4:
-					str += (Weapon)i;
-					break;
-				case 5:
-					str += (FinalRoomPuzzle)i;
-					break;
-				case 6:
-					str += (Orb)i;
-					break;
-			}
-			
-			str += "\n";
-			
-			for (String s : normalDialogue) {
-				str += "\"" + s + "\"\n";
-			}
-			
-			for (String s : combatDialogue) {
-				str += "\"" + s + "\"\n";
-			}
+			str += i.toString() + "\n";
 		}
-		
+		str += "\n\n---------- Dialogues ----------\n";
+		for (String s : normalDialogue) {
+			str += "Normal: \"" + s + "\"\n";
+		}
+
+		for (String s : combatDialogue) {
+			str += "Combat: \"" + s + "\"\n";
+		}
+
 		return str;
 	}
 }
