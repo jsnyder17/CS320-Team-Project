@@ -102,7 +102,7 @@ public class AttackManager extends Manager {
 						if (!npc.getInventory().getIsEmpty()) {
 							for (int i = 0; i < npc.getInventory().getItems().size(); i++) {
 								gm.getRooms().get(gm.getCurrentRoomIndex()).addItem(npc.getInventory().getItems().get(i));
-								db.moveItem(gm.getRooms().get(gm.getCurrentRoomIndex()).getInventoryId(), npc.getInventory().getItems().get(i).getItemId());
+								db.moveItem(npc.getInventory().getItems().get(i).getItemId(), gm.getRooms().get(gm.getCurrentRoomIndex()).getInventoryId());
 							}
 							output.add("It looks like they've dropped some things. ");
 						}

@@ -211,8 +211,11 @@ public class ItemExchangeManager extends Manager {
 					if (npc != null) {
 						npc.addItem(item);
 						gm.getPlayer().removeItem(item);
+						updateEquippedWeaponIndex();
 						
-						db.moveItem(npc.getInventoryIndex(), item.getItemId());
+						//db.moveItem(item.getItemId(), npc.getInventoryIndex());
+						
+						db.moveItem(item.getItemId(), npc.getInventoryIndex());
 						
 						output.add("You gave the '" + item.getName() + "' to " + npc.getName() + ". ");
 					}
@@ -226,6 +229,20 @@ public class ItemExchangeManager extends Manager {
 			}
 			else {
 				output.add("Give what to who? ");
+			}
+		}
+	}
+	
+	private void updateEquippedWeaponIndex() {
+		for (Item item : gm.getPlayer().getInventory().getItems()) {
+			if (item.getType() == 4) {
+				Weapon wm = (Weapon)item;
+				
+				if (wm.getEquipped()) {
+					gm.getPlayer().setEquippedWeaponIndex(gm.getPlayer().getInventory().findItem(item));
+					db.updatePlayer(gm.getPlayer());
+					db.updateWeaponItem(wm);
+				}
 			}
 		}
 	}
