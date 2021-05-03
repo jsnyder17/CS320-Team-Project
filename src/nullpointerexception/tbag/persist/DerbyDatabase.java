@@ -41,7 +41,7 @@ public class DerbyDatabase implements IDatabase {
 	public static void main(String[] args) throws IOException {
 		//System.out.println("Creating tables...");
 		DerbyDatabase db = new DerbyDatabase();
-		//db.dropTables();
+		db.dropTables();
 		db.createTables();
 
 		//System.out.println("Loading initial data...");
@@ -115,7 +115,7 @@ public class DerbyDatabase implements IDatabase {
 					// //System.out.println("weaponItems table created. ");
 
 					stmt = conn.prepareStatement(
-							"create table frpItems(item_id int constraint frpItems_item_id references itemsList, item_name varchar(40), isUsed boolean)");
+							"create table frpItems(item_id int constraint frpItems_item_id references itemsList, item_name varchar(40), isUsed boolean, inventory_index int)");
 
 					stmt.executeUpdate();
 
@@ -2015,6 +2015,7 @@ public class DerbyDatabase implements IDatabase {
 		frp.setItemId(id);
 		frp.setName(resultSet.getString(index++));
 		frp.setUsed(resultSet.getBoolean(index++));
+		frp.setInventoryId(index++);
 	}
 
 	public void loadDoor(Door door, ResultSet resultSet, int index) throws SQLException {
@@ -2165,11 +2166,12 @@ public class DerbyDatabase implements IDatabase {
 
 					//// //System.out.println("npcList table populated. ");
 
-					insertFrp = conn.prepareStatement("insert into frpItems(item_id, item_name, isUsed) values(?,?,?)");
+					insertFrp = conn.prepareStatement("insert into frpItems(item_id, item_name, isUsed, inventory_index) values(?,?,?,?)");
 					for (FinalRoomPuzzle frp : frpList) {
 						insertFrp.setInt(1, frp.getItemId());
 						insertFrp.setString(2, frp.getName());
 						insertFrp.setBoolean(3, frp.getUsed());
+						insertFrp.setInt(4, frp.getInventoryId());
 						insertFrp.addBatch();
 					}
 					insertFrp.executeBatch();
@@ -2386,7 +2388,7 @@ public class DerbyDatabase implements IDatabase {
 	// TODO: DO NOT PUT THE DB IN THE SAME FOLDER AS YOUR PROJECT - that will cause
 	// conflicts later w/Git
 	private Connection connect() throws SQLException {
-		Connection conn = DriverManager.getConnection("jdbc:derby:C:/Users/drumm/bruhMoment1.db;create=true");
+		Connection conn = DriverManager.getConnection("jdbc:derby:C:/Users/nhlre/bruhMoment1.db;create=true");
 
 		// Set autocommit() to false to allow the execution of
 		// multiple queries/statements as part of the same transaction.
