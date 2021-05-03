@@ -15,52 +15,34 @@ import nullpointerexception.tbag.items.FinalRoomPuzzle;
 import nullpointerexception.tbag.items.Orb;
 
 public interface IDatabase {
-	public ArrayList<Item> getBaseItem(final String sourceName, final String itemName);
 	public ArrayList<LightSource> getLightSource(final String sourceName, final String itemName);
 	public ArrayList<Clothing> getClothing(final String sourceName, final String itemName);
 	public ArrayList<Weapon> getWeapon(final String sourceName, final String itemName);
 	public ArrayList<FinalRoomPuzzle> getFinalRoomPuzzle(final String source, final String itemName);
 	public ArrayList<Orb> getOrb(final String source, final String itemName);
-	public ArrayList<Door> getDoors();
 	
-	public boolean addBaseItem(final String sourceName, final Item item);
-	public boolean addLightSource(final String sourceName, final LightSource lsm);
-	public boolean addClothing(final String sourceName, final Clothing cm);
-	public boolean addWeapon(final String destinationName, final Weapon wm);
-	public boolean addFinalRoomPuzzle(final String destinationName, final FinalRoomPuzzle fr);
-	public boolean addOrb(final String destinationName, final Orb om);
-	
-	public boolean removeBaseItem(final String sourceName, final String itemName);
-	public boolean removeLightSource(final String sourceName, final String itemName);
-	public boolean removeClothing(final String sourceName, final String itemName);
-	public boolean removeWeapon(final String sourceName, final String itemName);
-	public boolean removeFinalRoomPuzzle(final String sourceName, final String itemName);
-	public boolean removeOrb(final String sourceName, final String itemName);
 	
 	public ArrayList<Npc> getNpcs(final int roomNumber);
 	public ArrayList<Item> getItems(final String source);
 	
 	/////////////////////NEW////////////////
 	public ArrayList<Room> getRooms();//returns arrayList of all the rooms with their doors placed in them
-	public ArrayList<Door> getDoors(final String roomName);
 	public Player getPlayer();
-	public boolean movePlayer(final int moveToo);
-	public boolean setPlayerHealth(final int health);
+	//public boolean movePlayer(final int moveToo);
+	//public boolean setPlayerHealth(final int health);
 	public boolean setPlayerEquippedWeaponIndex(final int weaponIndex);
 	public int getItemType(final int item_id);
 	public Npc getIndividualNPC(final String name);
 	public boolean setNpcHostile(final String name, final boolean isHostile);
 	public boolean setNpcEquippedWeaponIndex(final String name, final int weaponIndex);
 	public boolean moveItem(final int item_id, final int newLocation);
-	public boolean setNpcHealth(final String name, final int health);
-	public boolean setItemIsUsed(final String name,final boolean isUsed);
-	public Item getItem(final String name);
+	//public boolean setNpcHealth(final String name, final int health);
+	//public boolean setItemIsUsed(final String name,final boolean isUsed);
 	public ArrayList<Item> getAllItemsFromLacation(final int location);
-	public boolean setWeaponisEquipped(final String name, final boolean isEquipped);
-	public boolean setClothingIsWearing(final String name, final boolean isWearing);
-	public boolean setLsIsLit(final String name, final boolean isLit);
+	//public boolean setWeaponisEquipped(final String name, final boolean isEquipped);
+	//public boolean setClothingIsWearing(final String name, final boolean isWearing);
+	//public boolean setLsIsLit(final String name, final boolean isLit);
 	public boolean doesHaveItem(final int item_id, final int inventory_id);
-	public boolean clearTables();
 	public Integer getItemId(String itemName);
 	public boolean testQueries();
 	public boolean unlockDoor(final int roomNumber);
@@ -82,8 +64,8 @@ public interface IDatabase {
 	public ArrayList<String> getNpcCombatDialogue(final String npcName);
 	public ArrayList<String> getNpcNormalDialogue(final String npcName);
 
-	public ArrayList<String> CombatDialogue(final String npcName);
 	
 	public void loadInitialData();
+	ArrayList<Door> getDoors();
 
 }

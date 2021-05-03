@@ -279,11 +279,7 @@ public class DerbyDatabase implements IDatabase {
 		});
 	}
 
-	@Override
-	public ArrayList<Item> getBaseItem(String sourceName, String itemName) {
-		//
-		return null;
-	}
+
 
 	public ArrayList<Item> getKey(String sourceName, String itemName) {
 		return executeTransaction(new Transaction<ArrayList<Item>>() {
@@ -461,6 +457,7 @@ public class DerbyDatabase implements IDatabase {
 		});
 
 	}
+	
 
 	@Override
 	public ArrayList<FinalRoomPuzzle> getFinalRoomPuzzle(String source, String itemName) {
@@ -500,77 +497,6 @@ public class DerbyDatabase implements IDatabase {
 		});
 	}
 
-	@Override
-	public boolean addBaseItem(String sourceName, Item item) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean addLightSource(String sourceName, LightSource lsm) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean addClothing(String sourceName, Clothing cm) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean addWeapon(String destinationName, Weapon wm) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean addFinalRoomPuzzle(String destinationName, FinalRoomPuzzle fr) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean addOrb(String destinationName, Orb om) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean removeBaseItem(String sourceName, String itemName) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean removeLightSource(String sourceName, String itemName) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean removeClothing(String sourceName, String itemName) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean removeWeapon(String sourceName, String itemName) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean removeFinalRoomPuzzle(String sourceName, String itemName) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean removeOrb(String sourceName, String itemName) {
-		// TODO Auto-generated method stub
-		return false;
-	}
 
 	@Override
 	public ArrayList<Npc> getNpcs(int roomNumber) {
@@ -772,7 +698,7 @@ public class DerbyDatabase implements IDatabase {
 			}
 		});
 	}
-
+/*
 	@Override
 	public boolean movePlayer(final int moveToo) {
 		return executeTransaction(new Transaction<Boolean>() {
@@ -819,8 +745,7 @@ public class DerbyDatabase implements IDatabase {
 
 		});
 	}
-
-	@Override
+*/
 	public boolean setPlayerEquippedWeaponIndex(final int weaponIndex) {
 		return executeTransaction(new Transaction<Boolean>() {
 			@Override
@@ -1041,7 +966,7 @@ public class DerbyDatabase implements IDatabase {
 			}
 		});
 	}
-
+/*
 	@Override
 	public boolean setNpcHealth(final String name, final int health) {
 		return executeTransaction(new Transaction<Boolean>() {
@@ -1060,7 +985,7 @@ public class DerbyDatabase implements IDatabase {
 			}
 		});
 	}
-
+/*
 	@Override
 	public boolean setItemIsUsed(String name, boolean isUsed) {
 		return executeTransaction(new Transaction<Boolean>() {
@@ -1079,12 +1004,7 @@ public class DerbyDatabase implements IDatabase {
 			}
 		});
 	}
-
-	@Override
-	public Item getItem(String name) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+*/
 
 	@Override
 	public ArrayList<Item> getAllItemsFromLacation(int location) {
@@ -1493,7 +1413,7 @@ public class DerbyDatabase implements IDatabase {
 			}
 		});
 	}
-
+/*
 	@Override
 	public boolean setWeaponisEquipped(String name, boolean isEquipped) {
 		return executeTransaction(new Transaction<Boolean>() {
@@ -1550,7 +1470,7 @@ public class DerbyDatabase implements IDatabase {
 			}
 		});
 	}
-
+*/
 	public boolean doesHaveItem(final int item_id, final int inventory_id) {
 		return executeTransaction(new Transaction<Boolean>() {
 			@Override
@@ -1572,12 +1492,6 @@ public class DerbyDatabase implements IDatabase {
 				}
 			}
 		});
-	}
-
-	@Override
-	public boolean clearTables() {
-		// TODO Auto-generated method stub
-		return false;
 	}
 
 	@Override
@@ -1656,11 +1570,6 @@ public class DerbyDatabase implements IDatabase {
 		});
 	}
 
-	@Override
-	public ArrayList<String> CombatDialogue(String npcName) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	@Override
 	public ArrayList<Orb> getOrb(String sourceName, String itemName) {
@@ -2398,11 +2307,11 @@ public class DerbyDatabase implements IDatabase {
 		// //System.out.println(player.getName() + " got player");
 
 		// test movePlayer
-		movePlayer(2);
+		//movePlayer(2);
 		// //System.out.println("Player moved");
 
 		// test setPlayerHealth
-		setPlayerHealth(90);
+		//setPlayerHealth(90);
 		// //System.out.println("Changed Player Health");
 
 		// test setPlayerEquippedWeaponIndex
@@ -2425,12 +2334,12 @@ public class DerbyDatabase implements IDatabase {
 		// //System.out.println(npc.getName());
 
 		// test setNpcHealth
-		setNpcHealth("wild_ape", 69);
+		//setNpcHealth("wild_ape", 69);
 		npc = getIndividualNPC("wild_ape");
 		// //System.out.println(npc.getHealth());
 
 		// moveItem
-		Item map = getItem("map");
+		//Item map = getItem("map");
 		moveItem(9, 10);
 		boolean test = doesHaveItem(9, 10);
 		// //System.out.println(test);
@@ -2441,10 +2350,6 @@ public class DerbyDatabase implements IDatabase {
 		return true;
 	}
 
-	@Override
-	public ArrayList<Door> getDoors(String roomName) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+
 
 }
