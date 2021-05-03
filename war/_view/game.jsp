@@ -24,7 +24,7 @@
 			<table>
 				<tr>
 					<td>Enter command:</td>
-					<td><input type="text" name="commandInput" size="100" value="${commandInput}"/></td>
+					<td><input type="text" name="commandInput" size="100" autocomplete="off" value="${commandInput}"/ autofocus></td>
 				</tr>
 			</table>
 		</div>
