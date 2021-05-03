@@ -6,7 +6,9 @@ import java.util.List;
 import nullpointerexception.tbag.actors.Npc;
 import nullpointerexception.tbag.actors.Player;
 import nullpointerexception.tbag.items.Clothing;
+import nullpointerexception.tbag.items.FinalRoomPuzzle;
 import nullpointerexception.tbag.items.Item;
+import nullpointerexception.tbag.items.Orb;
 import nullpointerexception.tbag.items.Weapon;
 import nullpointerexception.tbag.managers.AttackManager;
 import nullpointerexception.tbag.managers.CheckEndGameManager;
@@ -61,18 +63,40 @@ public class GameManagerController {
         		}
         	}
         }
+        
         for (Room room : rooms) {
         	for (Pair p : itemsMap) {
         		if (room.getInventoryId() == (int)p.getRight()) {
         			Item item = db.getItembyId((int)p.getLeft());
+        			
+        			/*
+        			if (item.getType() == 5) {
+        				FinalRoomPuzzle frp = (FinalRoomPuzzle)item;
+        				System.out.println("Adding " + frp.toString() + " ... ");
+        			}
+        			*/
+        			
         			room.addItem(item);
         		}
         	}
         }
+        
         for (Pair p : itemsMap) {
         	if (player.getInventoryIndex() == (int)p.getRight()) {
         		Item item = db.getItembyId((int)p.getLeft());
         		player.addItem(item);
+        	}
+        }
+        
+        // Add orbs to frp item
+        FinalRoomPuzzle frp = (FinalRoomPuzzle)rooms.get(9).getInventory().getItem("orb_container");
+        
+        System.out.println(frp.toString());
+        
+        for (Pair p : itemsMap) {
+        	if (frp.getInventoryId() == (int)p.getRight()) {
+        		Item item = db.getItembyId((int)p.getLeft());
+        		frp.addItem(item);
         	}
         }
         
