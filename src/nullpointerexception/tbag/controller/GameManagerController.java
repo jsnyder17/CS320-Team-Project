@@ -9,8 +9,10 @@ import nullpointerexception.tbag.items.Clothing;
 import nullpointerexception.tbag.items.Item;
 import nullpointerexception.tbag.items.Weapon;
 import nullpointerexception.tbag.managers.AttackManager;
+import nullpointerexception.tbag.managers.CheckEndGameManager;
 import nullpointerexception.tbag.managers.ClothingManager;
 import nullpointerexception.tbag.managers.CommandManager;
+import nullpointerexception.tbag.managers.EndGameManager;
 import nullpointerexception.tbag.managers.EquipManager;
 import nullpointerexception.tbag.managers.GenericManager;
 import nullpointerexception.tbag.managers.ItemExchangeManager;
@@ -100,6 +102,8 @@ public class GameManagerController {
 	}
 	
 	public void doGame() {
+		boolean endGame = false;
+		
 		ArrayList<String> commandParams = new ArrayList<String>();
 		
 		outputList.add("> " + command);
@@ -121,10 +125,17 @@ public class GameManagerController {
 			
 			addoutputList(mm.getOutput());
 		}
-		else if (commandParams.get(0).equals("take") || commandParams.get(0).equals("pick-up") || commandParams.get(0).equals("drop") || commandParams.get(0).equals("give")) {
+		else if (commandParams.get(0).equals("take") || commandParams.get(0).equals("pick-up") || commandParams.get(0).equals("drop") || commandParams.get(0).equals("give") || commandParams.get(0).equals("insert")) {
 			ItemExchangeManager iem = new ItemExchangeManager(commandParams, gm, db);
 			
 			addoutputList(iem.getOutput());
+			
+			// See if the game has been completed, since this will only happen if there is an iem instance 
+			if (commandParams.get(0).equals("insert")) {
+				CheckEndGameManager cegm = new CheckEndGameManager(gm, db);
+				
+				endGame = cegm.determineWinCondition();
+			}
 		}
 		else if (commandParams.get(0).equals("attack")) {
 			am = new AttackManager(commandParams, gm, db);
@@ -162,6 +173,12 @@ public class GameManagerController {
 			ResetManager rm = new ResetManager(commandParams, gm, db);
 			
 			addoutputList(rm.getOutput());
+		}
+		
+		
+		
+		if (endGame) {
+			// TODO - Win condition stuff 
 		}
 		
 		processoutputList();

@@ -4,8 +4,10 @@ import java.util.ArrayList;
 
 import nullpointerexception.tbag.actors.Npc;
 import nullpointerexception.tbag.items.Clothing;
+import nullpointerexception.tbag.items.FinalRoomPuzzle;
 import nullpointerexception.tbag.items.Item;
 import nullpointerexception.tbag.items.LightSource;
+import nullpointerexception.tbag.items.Orb;
 import nullpointerexception.tbag.items.Weapon;
 import nullpointerexception.tbag.model.GameManagerModel;
 import nullpointerexception.tbag.persist.DerbyDatabase;
@@ -231,6 +233,49 @@ public class ItemExchangeManager extends Manager {
 				output.add("Give what to who? ");
 			}
 		}
+		
+		
+		
+		else if (commandParams.get(0).equals("insert")) {
+			if (commandParams.size() > 2) {
+				Item item = gm.getPlayer().getInventory().getItem(commandParams.get(1));
+				
+				if (item != null) {
+					if (item.getType() == 6) {
+						Orb orb = (Orb)item;
+						
+						Item frpItem = gm.getRooms().get(gm.getCurrentRoomIndex()).getInventory().getItem(commandParams.get(2));
+						if (frpItem != null) {
+							if (frpItem.getType() == 5) {
+								FinalRoomPuzzle frp = (FinalRoomPuzzle)frpItem;
+								
+								frp.addItem(orb);
+								gm.getPlayer().removeItem(orb);
+								
+								// TODO - UPDATE DATABASE 
+								
+								output.add("The orb fits perfectly into the spherical slots on the device and locks into place. ");
+							}
+							else {
+								output.add("You can't seem to find a way to insert this. ");
+							}
+						}
+						else {
+							output.add("You can't insert something into something that isn't here. ");
+						}
+					}
+					else {
+						output.add("It doesn't seem like this is something that should be inserted somewhere. ");
+					}
+				}
+				else {
+					output.add("I don't think you have that item. ");
+				}
+			}
+			else {
+				output.add("Insert what into what? ");
+			}
+		}
 	}
 	
 	private void updateEquippedWeaponIndex() {
@@ -251,3 +296,4 @@ public class ItemExchangeManager extends Manager {
 		return output;
 	}
 }
+

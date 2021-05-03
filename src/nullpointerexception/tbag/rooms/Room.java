@@ -158,7 +158,7 @@ public class Room implements InventoryInterface {
     			addItem(new Weapon(itemString));
     		}
     		else if (itemType == 5) {
-    			addItem(new FinalRoomPuzzle(itemString));
+    			//addItem(new FinalRoomPuzzle(itemString));
     		}
     	}
 
