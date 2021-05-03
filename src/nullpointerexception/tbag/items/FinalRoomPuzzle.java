@@ -5,11 +5,21 @@ import nullpointerexception.tbag.inventory.InventoryInterface;
 
 public class FinalRoomPuzzle extends Item implements InventoryInterface {
 	private Inventory inventory;
+	int inventoryId;
 	
 	public FinalRoomPuzzle() {
 		super();
 		
 		inventory = new Inventory();
+		inventoryId = 0;
+	}
+	
+	public void setInventoryId(int inventoryId) {
+		this.inventoryId = inventoryId;
+	}
+	
+	public int getInventoryId() {
+		return inventoryId;
 	}
 	
 	public boolean insert(Orb orb) {
