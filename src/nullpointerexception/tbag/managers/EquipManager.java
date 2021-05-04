@@ -18,9 +18,11 @@ public class EquipManager extends Manager {
 		if (commandParams.get(0).equals("equip")) {
 			if (commandParams.size() == 2) {
 				Item item = gm.getPlayer().getInventory().getItem(commandParams.get(1));
-				
 				if (item != null) {
-					if (item.getType() == 4) {
+					if (gm.getPlayer().getEquippedWeaponIndex() != -1) {
+						output.add("You already have a weapon equipped you goober... ");
+					}
+					else if (item.getType() == 4) {
 						Weapon wm = (Weapon)item;
 						
 						wm.setEquipped(true);
