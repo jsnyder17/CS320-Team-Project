@@ -21,6 +21,9 @@
   <servlet>
   	<servlet-name>YouLoseServlet</servlet-name>
   	<servlet-class>nullpointerexception.tbag.servlet.YouLoseServlet</servlet-class></servlet>
+   <servlet>
+  	<servlet-name>YouWonServlet</servlet-name>
+  	<servlet-class>nullpointerexception.tbag.servlet.YouWonServlet</servlet-class></servlet>
 
   <!-- Servlet mappings -->
   <servlet-mapping>
@@ -49,6 +52,12 @@
   	<url-pattern>/bobby</url-pattern>
   	<url-pattern>/patrick</url-pattern>
   	<url-pattern>/emoji</url-pattern></servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>YouWonServlet</servlet-name>
+    <url-pattern>/youWon</url-pattern>
+    <url-pattern>/congradulations</url-pattern>
+    <url-pattern>/amongus</url-pattern>
+  </servlet-mapping>
 
   <!--
   <welcome-file-list>
