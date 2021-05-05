@@ -28,7 +28,13 @@ public class Inventory {
 		
 		//System.out.println("InventoryModel secondary constructor called. ");
 	}
-	
+	public Item getItemFromIndex (int index) {
+		Item itemAtIndex = null;
+		if (index < items.size()) {
+			itemAtIndex = items.get(index);
+		}
+		return itemAtIndex;
+	}
 	public Item getItem(String itemName) {	// Will return null if no item is found 
 		// Find the item in the inventory
 		Item searchedItem = null;

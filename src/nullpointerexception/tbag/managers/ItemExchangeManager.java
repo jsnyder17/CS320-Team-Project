@@ -28,6 +28,7 @@ public class ItemExchangeManager extends Manager {
 						
 						if (item != null) {
 							if (item.getType() != 5) {
+								
 								gm.getPlayer().addItem(item);
 								db.moveItem(item.getItemId(), gm.getPlayer().getInventoryIndex());
 								
@@ -52,6 +53,7 @@ public class ItemExchangeManager extends Manager {
 						Item item = room.getInventory().getItems().get(index);
 						
 						if (item.getType() != 5) {
+		
 							gm.getPlayer().addItem(item);
 							db.moveItem(item.getItemId(), gm.getPlayer().getInventoryIndex());
 							
