@@ -12,6 +12,7 @@ import nullpointerexception.tbag.items.Orb;
 import nullpointerexception.tbag.items.Weapon;
 import nullpointerexception.tbag.managers.AttackManager;
 import nullpointerexception.tbag.managers.CheckEndGameManager;
+import nullpointerexception.tbag.managers.CheckStatusManager;
 import nullpointerexception.tbag.managers.ClothingManager;
 import nullpointerexception.tbag.managers.CommandManager;
 import nullpointerexception.tbag.managers.EndGameManager;
@@ -132,9 +133,13 @@ public class GameManagerController {
 		
 		outputList.add("> " + command);
 		
+		CheckStatusManager csm = new CheckStatusManager(gm, db);
+		
 		// Npc attacks
 	    AttackManager am = new AttackManager(null, gm, db);
 	    addoutputList(am.getOutput());
+	    
+	    gm.setDeathEnding(csm.checkHealthStatus());
 		
 		// Command entry 
 		CommandManager cm = new CommandManager();
@@ -158,7 +163,7 @@ public class GameManagerController {
 			if (commandParams.get(0).equals("insert")) {
 				CheckEndGameManager cegm = new CheckEndGameManager(gm, db);
 				
-				endGame = cegm.determineWinCondition();
+				gm.setCompletedEnding(cegm.determineWinCondition());
 			}
 		}
 		else if (commandParams.get(0).equals("attack")) {
@@ -197,12 +202,6 @@ public class GameManagerController {
 			ResetManager rm = new ResetManager(commandParams, gm, db);
 			
 			addoutputList(rm.getOutput());
-		}
-		
-		
-		
-		if (endGame) {
-			// TODO - Win condition stuff 
 		}
 		
 		processoutputList();

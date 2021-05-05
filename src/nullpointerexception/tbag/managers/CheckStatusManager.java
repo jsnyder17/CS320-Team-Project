@@ -46,7 +46,7 @@ public class CheckStatusManager extends Manager {
 	public boolean checkHealthStatus() {
 		boolean dead = false;
 		
-		if (gm.getPlayer().getHealth() >= 0) {
+		if (gm.getPlayer().getHealth() <= 0) {
 			dead = true;
 		}
 		

@@ -16,6 +16,8 @@ public class GameManagerModel {
 	private String output;
 	private int currentRoomIndex;
 	private boolean endGame;
+	private boolean deathEnding;
+	private boolean completedEnding;
 	
 	public GameManagerModel() {
 		player = new Player();
@@ -27,6 +29,8 @@ public class GameManagerModel {
 		output = "";
 		currentRoomIndex = 0;
 		endGame = false;
+		deathEnding = false;
+		completedEnding = false;
 		
 		// Add items to player's inventory
 		/*
@@ -80,6 +84,12 @@ public class GameManagerModel {
 	public int getCurrentRoomIndex() {
 		return currentRoomIndex;
 	}
+	public boolean getDeathEnding() {
+		return deathEnding;
+	}
+	public boolean getCompletedEnding() {
+		return completedEnding;
+	}
 	
 	public void setPlayer(Player player) {
 		this.player = player;
@@ -122,6 +132,12 @@ public class GameManagerModel {
 	}
 	public void setCurrentRoomIndex(int roomIndex) {
 		this.currentRoomIndex = roomIndex;
+	}
+	public void setDeathEnding(boolean deathEnding) {
+		this.deathEnding = deathEnding;
+	}
+	public void setCompletedEnding(boolean completedEnding) {
+		this.completedEnding = completedEnding;
 	}
 	public void setOutput(ArrayList<String> outputList) {
 		for (String s : outputList) {
