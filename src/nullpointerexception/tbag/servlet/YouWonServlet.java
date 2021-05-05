@@ -21,7 +21,7 @@ public class YouWonServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 
-		System.out.println("\nLoginServlet: doGet");
+		System.out.println("\nYouWinServlet: doGet");
 		
 		ArrayList<String> winList = new ArrayList<String>();
 		winList.add("youWon");

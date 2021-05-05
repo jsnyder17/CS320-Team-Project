@@ -51,7 +51,8 @@
   	<url-pattern>/nicejacket</url-pattern>
   	<url-pattern>/bobby</url-pattern>
   	<url-pattern>/patrick</url-pattern>
-  	<url-pattern>/emoji</url-pattern></servlet-mapping>
+  	<url-pattern>/emoji</url-pattern>
+  	<url-pattern>/ohbrother</url-pattern></servlet-mapping>
   <servlet-mapping>
     <servlet-name>YouWonServlet</servlet-name>
     <url-pattern>/youWon</url-pattern>

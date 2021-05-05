@@ -21,7 +21,7 @@ public class YouLoseServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 
-		System.out.println("\nLoginServlet: doGet");
+		System.out.println("\nYouLoseServlet: doGet");
 		
 		ArrayList<String> loseList = new ArrayList<String>();
 		loseList.add("bluekid");
@@ -36,6 +36,7 @@ public class YouLoseServlet extends HttpServlet {
 		loseList.add("bobby");
 		loseList.add("patrick");
 		loseList.add("emoji");
+		loseList.add("ohbrother");
 		
 		
 		int random = rand.nextInt(loseList.size());
