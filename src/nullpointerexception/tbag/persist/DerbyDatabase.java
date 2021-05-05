@@ -1222,7 +1222,7 @@ public class DerbyDatabase implements IDatabase {
 								item.setName(result2.getString("item_name"));
 								item.setType(5);
 								item.setUsed(result2.getBoolean("isUsed"));
-
+								item.setInventoryId(result2.getInt("inventory_index"));
 							}
 							items.add(item);
 
@@ -1458,7 +1458,7 @@ public class DerbyDatabase implements IDatabase {
 								item.setName(result2.getString("item_name"));
 								item.setType(5);
 								item.setUsed(result2.getBoolean("isUsed"));
-
+								item.setInventoryId(result2.getInt("inventory_index"));
 							}
 							return item;
 
@@ -2172,6 +2172,9 @@ public class DerbyDatabase implements IDatabase {
 						insertFrp.setString(2, frp.getName());
 						insertFrp.setBoolean(3, frp.getUsed());
 						insertFrp.setInt(4, frp.getInventoryId());
+						
+						System.out.println("Set inventory id to: " + frp.getInventoryId());
+						
 						insertFrp.addBatch();
 					}
 					insertFrp.executeBatch();
@@ -2388,7 +2391,7 @@ public class DerbyDatabase implements IDatabase {
 	// TODO: DO NOT PUT THE DB IN THE SAME FOLDER AS YOUR PROJECT - that will cause
 	// conflicts later w/Git
 	private Connection connect() throws SQLException {
-		Connection conn = DriverManager.getConnection("jdbc:derby:C:/Users/nhlre/bruhMoment1.db;create=true");
+		Connection conn = DriverManager.getConnection("jdbc:derby:C:/Users/jawsh/bruhMoment1.db;create=true");
 
 		// Set autocommit() to false to allow the execution of
 		// multiple queries/statements as part of the same transaction.

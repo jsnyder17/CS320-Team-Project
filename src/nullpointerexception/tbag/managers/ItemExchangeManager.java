@@ -22,7 +22,7 @@ public class ItemExchangeManager extends Manager {
 		executeCommand();
 	}
 	private void executeCommand() {
-		if (commandParams.get(0).equals("take") || commandParams.get(1).equals("pick-up")) {
+		if (commandParams.get(0).equals("take") || commandParams.get(0).equals("pick-up")) {
 			if (commandParams.size() > 1) {
 				if (!commandParams.get(1).equals("all")) {
 					for (int i = 1; i < commandParams.size(); i++) {
@@ -254,9 +254,9 @@ public class ItemExchangeManager extends Manager {
 								frp.addItem(orb);
 								gm.getPlayer().removeItem(orb);
 								
-								// TODO - UPDATE DATABASE 
+								db.moveItem(orb.getItemId(), frp.getInventoryId());
 								
-								output.add("The orb fits perfectly into the spherical slots on the device and locks into place. ");
+								output.add("The orb fits perfectly into the spherical slots on the device and locks into place. (" + frp.getInventory().getItems().size() + ") orbs in the machine. ");
 							}
 							else {
 								output.add("You can't seem to find a way to insert this. ");

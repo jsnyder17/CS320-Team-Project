@@ -38,8 +38,10 @@ public class FinalRoomPuzzle extends Item implements InventoryInterface {
 	public boolean checkOrder() {
 		boolean goodOrder = false;
 		
-		if (inventory.getItems().get(0).getName().equals("red_orb") && inventory.getItems().get(1).getName().equals("green_orb") && inventory.getItems().get(2).getName().equals("blue_orb")) {
-			goodOrder = true;
+		if (inventory.getItems().size() > 2) {
+			if (inventory.getItems().get(0).getName().equals("red_orb") && inventory.getItems().get(1).getName().equals("green_orb") && inventory.getItems().get(2).getName().equals("blue_orb")) {
+				goodOrder = true;
+			}
 		}
 		
 		return goodOrder;
@@ -54,7 +56,7 @@ public class FinalRoomPuzzle extends Item implements InventoryInterface {
 	}
 	
 	public String toString() {
-		return (super.getItemId() + "      " + super.getName() + "      " + super.getUsed());
+		return (super.getItemId() + "      " + super.getName() + "      " + super.getUsed() + this.inventoryId);
 	}
 	@Override
 	public Inventory getInventory() {

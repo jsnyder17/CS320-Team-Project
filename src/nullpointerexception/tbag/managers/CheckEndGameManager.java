@@ -1,6 +1,7 @@
 package nullpointerexception.tbag.managers;
 
 import nullpointerexception.tbag.items.FinalRoomPuzzle;
+import nullpointerexception.tbag.items.Item;
 import nullpointerexception.tbag.items.Orb;
 import nullpointerexception.tbag.model.GameManagerModel;
 import nullpointerexception.tbag.persist.DerbyDatabase;
@@ -15,17 +16,18 @@ public class CheckEndGameManager extends Manager {
 		boolean endGame = false;
 		
 		// Check the final room puzzle
-		FinalRoomPuzzle frp = (FinalRoomPuzzle)gm.getRooms().get(10).getInventory().getItem("orb_container");
+		FinalRoomPuzzle frp = (FinalRoomPuzzle)gm.getRooms().get(9).getInventory().getItem("orb_container");
 		
-		if (frp.checkOrder()) {
-			endGame = true;
-		}
-		else {
-			ejectOrbs(frp);
-			
-			endGame = false;
-			
-			output.add("After inserting the orb, the device makes a loud rattling noise and the orbs eject from the machine onto the floor. ");
+		if (frp.getInventory().getItems().size() > 2) {
+			if (frp.checkOrder()) {
+				endGame = true;
+			}
+			else {
+				System.out.println("*** order was invalid ejecting spheres ... ***");
+				ejectOrbs(frp);
+				
+				output.add("After inserting the orb, the device makes a loud rattling noise and the orbs eject from the machine onto the floor. ");
+			}
 		}
 		
 		return endGame;
@@ -36,14 +38,16 @@ public class CheckEndGameManager extends Manager {
 		Room room = gm.getRooms().get(gm.getCurrentRoomIndex());
 		
 		while (index > -1) {
-			Orb orb = (Orb)frp.getInventory().getItems().get(index);
+			System.out.println("Ejecting item ... ");
+			Item item = frp.getInventory().getItems().get(index);
 			
-			frp.removeItem(orb);
-			room.addItem(orb);
+			frp.removeItem(item);
+			room.addItem(item);
 			
-			// TODO - UPDATE DATABASE 
+			db.moveItem(item.getItemId(), room.getInventoryId());
 			
 			index -= 1;
 		}
+		System.out.println("Finished loop. ");
 	}
 }
