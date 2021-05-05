@@ -294,6 +294,7 @@ public class InitialData {
 				frp.setItemId(Integer.parseInt(i.next()));
 				frp.setName(i.next());
 				frp.setUsed(Boolean.parseBoolean(i.next()));
+				frp.setInventoryId(Integer.parseInt(i.next()));
 				frpList.add(frp);
 			}
 			//System.out.println("frpList loaded from CSV file. ");

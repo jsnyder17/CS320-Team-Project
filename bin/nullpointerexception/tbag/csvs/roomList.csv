@@ -6,5 +6,5 @@ Closet,You're in the closet.It looks empty besides what might be a secret door o
 Basement,Looks like you've fallen through a trap door but you can't see anything.,FALSE,FALSE,TRUE,6,-1,-1,10,-1,-1,-1
 Secret Lab,You're in some kind of secret testing facility there's a door to the east. Watch out for the test monkeys... they look hungry.,FALSE,FALSE,FALSE,7,-1,-1,12,11,-1,-1
 Storage Room,You're in a secret storage room with tons of questionably sources medical equipment and an exit to the south.,FALSE,FALSE,FALSE,8,-1,14,-1,13,-1,-1
-Secret Office,You're in the office of the evil man who's been running this whole underground facility. There's a tiny door to the south. ,FALSE,FALSE,FALSE,9,15,-1,16,-1,-1,-1
+Secret Office,You're in the office of the evil man who's been running this whole underground facility. There's a tiny door to the east. ,FALSE,FALSE,FALSE,9,15,-1,16,-1,-1,-1
 Final Room,You're in the final room. You've almost made it out and you can finally see the light of day again.,FALSE,FALSE,FALSE,10,-1,-1,-1,17,-1,-1
