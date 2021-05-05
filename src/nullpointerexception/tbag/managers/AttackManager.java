@@ -36,8 +36,14 @@ public class AttackManager extends Manager {
 							System.out.println("My equipped weapon index is at: " + npcs.get(i).getEquippedWeaponIndex());
 							Weapon wm = (Weapon)npcs.get(i).getInventory().getItems().get(npcs.get(i).getEquippedWeaponIndex() - 1);
 							
+							if(npcs.get(i).getName().equals("dr_scientist")) {
+								damage = wm.getDamage()/(gm.getPlayer().getVaccineUseCount()+1);
+								weaponName = wm.getName();
+							}
+							else {
 							damage = wm.getDamage();
 							weaponName = wm.getName();
+							}
 						}
 						else {
 							damage = 1;
