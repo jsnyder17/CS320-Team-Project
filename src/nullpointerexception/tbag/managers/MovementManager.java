@@ -7,6 +7,7 @@ import nullpointerexception.tbag.model.GameManagerModel;
 import nullpointerexception.tbag.actors.Npc;
 import nullpointerexception.tbag.items.Clothing;
 import nullpointerexception.tbag.persist.DerbyDatabase;
+import nullpointerexception.tbag.rooms.Room;
 
 public class MovementManager extends Manager {
 	private CheckStatusManager csm;
@@ -76,6 +77,8 @@ public class MovementManager extends Manager {
 					
 					gm.setCurrentRoomIndex(gm.getPlayer().getCurrentRoom() - 1);
 					output.add("You moved north. ");
+					Room room = gm.getRooms().get(gm.getPlayer().getCurrentRoom() - 1);
+					output.add(room.getDescription());
 					
 					gm.getRooms().get(gm.getCurrentRoomIndex()).setPrevDiscovered(true);
 					db.updateRoom(gm.getRooms().get(gm.getCurrentRoomIndex()));
@@ -105,6 +108,8 @@ public class MovementManager extends Manager {
 					
 					gm.setCurrentRoomIndex(gm.getPlayer().getCurrentRoom() - 1);
 					output.add("You moved south. ");
+					Room room = gm.getRooms().get(gm.getPlayer().getCurrentRoom() - 1);
+					output.add(room.getDescription());
 					
 					gm.getRooms().get(gm.getCurrentRoomIndex()).setPrevDiscovered(true);
 					db.updateRoom(gm.getRooms().get(gm.getCurrentRoomIndex()));
@@ -133,6 +138,8 @@ public class MovementManager extends Manager {
 					
 					gm.setCurrentRoomIndex(gm.getPlayer().getCurrentRoom() - 1);
 					output.add("You moved east. ");
+					Room room = gm.getRooms().get(gm.getPlayer().getCurrentRoom() - 1);
+					output.add(room.getDescription());
 					
 					gm.getRooms().get(gm.getCurrentRoomIndex()).setPrevDiscovered(true);
 					db.updateRoom(gm.getRooms().get(gm.getCurrentRoomIndex()));
@@ -161,6 +168,8 @@ public class MovementManager extends Manager {
 					
 					gm.setCurrentRoomIndex(gm.getPlayer().getCurrentRoom() - 1);
 					output.add("You moved west. ");
+					Room room = gm.getRooms().get(gm.getPlayer().getCurrentRoom() - 1);
+					output.add(room.getDescription());
 					
 					gm.getRooms().get(gm.getCurrentRoomIndex()).setPrevDiscovered(true);
 					db.updateRoom(gm.getRooms().get(gm.getCurrentRoomIndex()));
@@ -186,6 +195,8 @@ public class MovementManager extends Manager {
 					
 					//gm.setCurrentRoomIndex(gm.getPlayer().getCurrentRoom() - 1);
 					output.add("You moved up. ");
+					Room room = gm.getRooms().get(gm.getPlayer().getCurrentRoom() - 1);
+					output.add(room.getDescription());
 					
 					gm.getRooms().get(gm.getCurrentRoomIndex()).setPrevDiscovered(true);
 					db.updateRoom(gm.getRooms().get(gm.getCurrentRoomIndex()));
@@ -208,6 +219,8 @@ public class MovementManager extends Manager {
 					
 					//gm.setCurrentRoomIndex(gm.getPlayer().getCurrentRoom() - 1);
 					output.add("You moved down. ");
+					Room room = gm.getRooms().get(gm.getPlayer().getCurrentRoom() - 1);
+					output.add(room.getDescription());
 					
 					gm.getRooms().get(gm.getCurrentRoomIndex()).setPrevDiscovered(true);
 					db.updateRoom(gm.getRooms().get(gm.getCurrentRoomIndex()));
