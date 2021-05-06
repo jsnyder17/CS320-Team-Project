@@ -40,18 +40,7 @@
   </servlet-mapping>
   <servlet-mapping>
   	<servlet-name>YouLoseServlet</servlet-name>
-  	<url-pattern>/bluekid</url-pattern>
   	<url-pattern>/youdied</url-pattern>
-  	<url-pattern>/mayor</url-pattern>
-  	<url-pattern>/chariots</url-pattern>
-  	<url-pattern>/frogg</url-pattern>
-  	<url-pattern>/frogg2</url-pattern>
-  	<url-pattern>/therules</url-pattern>
-  	<url-pattern>/tyler</url-pattern>
-  	<url-pattern>/nicejacket</url-pattern>
-  	<url-pattern>/bobby</url-pattern>
-  	<url-pattern>/patrick</url-pattern>
-  	<url-pattern>/emoji</url-pattern>
   	<url-pattern>/mask</url-pattern></servlet-mapping>
   <servlet-mapping>
     <servlet-name>YouWonServlet</servlet-name>

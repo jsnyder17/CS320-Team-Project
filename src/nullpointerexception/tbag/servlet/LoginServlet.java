@@ -17,8 +17,7 @@ public class LoginServlet extends HttpServlet {
 	private LoginController controller;
 
 	@Override
-	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
-			throws ServletException, IOException {
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
 		System.out.println("\nLoginServlet: doGet");
 
@@ -26,8 +25,7 @@ public class LoginServlet extends HttpServlet {
 	}
 
 	@Override
-	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
-			throws ServletException, IOException {
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
 		System.out.println("\nLoginServlet: doPost");
 
@@ -44,9 +42,15 @@ public class LoginServlet extends HttpServlet {
 
 		if (name == null || pw == null || name.equals("") || pw.equals("")) {
 			errorMessage = "Please specify both user name and password";
-		} else {
+		} 
+		else {
 			model      = new Library();
 			controller = new LoginController(model);
+
+			if (req.getRequestDispatcher("new") != null) {
+				controller.createNewUser(name, pw);
+			}
+			
 			validLogin = controller.validateCredentials(name, pw);
 
 			if (!validLogin) {
