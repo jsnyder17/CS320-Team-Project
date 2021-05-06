@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
 
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -32,12 +33,19 @@ public class GameServlet extends HttpServlet {
 		
 		System.out.println("Game Servlet: doPost");
 		
+		ServletContext servletContext = getServletContext();
+		String username = (String)servletContext.getAttribute("username");
+		
+		System.out.println("Username: " + username);
+		
 		Random rand = new Random();
 		
 		GameManagerModel gm = new GameManagerModel();
 		//GameManagerController gmc = new GameManagerController(gm);
 		
 		DerbyDatabase db = new DerbyDatabase();
+		db.setUsername(username);
+		db.initialize();
 		
 		GameManagerController gmc = new GameManagerController(gm, db);
 		
@@ -45,34 +53,10 @@ public class GameServlet extends HttpServlet {
 		gmc.doGame();
 		
 		if (gm.getDeathEnding()) {
-			ArrayList<String> loseList = new ArrayList<String>();
-			if (((Clothing) gm.getPlayer().getInventory().getItem("mask")).getWearing() == false) {
-				loseList.add("mask");
-			}
-			else {
-				
-				loseList.add("bluekid");
-				loseList.add("youdied");
-				loseList.add("mayor");
-				loseList.add("chariots");
-				loseList.add("frogg");
-				loseList.add("frogg2");
-				loseList.add("therules");
-				loseList.add("tyler");
-				loseList.add("nicejacket");
-				loseList.add("bobby");
-				loseList.add("patrick");
-				loseList.add("emoji");
-			}
-			
-			int random = rand.nextInt(loseList.size());
-			
-			String fileName = loseList.get(random);
-
-			req.getRequestDispatcher("/_view/" + fileName +".jsp").forward(req, resp);
+			resp.sendRedirect(req.getContextPath() + "/youdied");
 		}
 		else if (gm.getCompletedEnding()) {
-			System.out.println("\nLoginServlet: doGet");
+			System.out.println("Game Servlet: doPost");
 			
 			ArrayList<String> winList = new ArrayList<String>();
 			winList.add("youWon");

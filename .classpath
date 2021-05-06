@@ -4,6 +4,6 @@
 	<classpathentry kind="src" path="main"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/CS320_Derby"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/CS320_Jetty9"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/jre1.8.0_291"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

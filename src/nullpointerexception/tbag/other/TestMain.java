@@ -11,6 +11,6 @@ public class TestMain {
 		DerbyDatabase db = new DerbyDatabase();
 		
 		GameManagerModel gm = new GameManagerModel();
-		GameManagerController gmc = new GameManagerController(gm, db);
+		//GameManagerController gmc = new GameManagerController(gm, db);
 	}
 }

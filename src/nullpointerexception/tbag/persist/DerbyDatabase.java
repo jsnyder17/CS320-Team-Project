@@ -1,5 +1,6 @@
 package nullpointerexception.tbag.persist;
 
+import java.io.File;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -23,6 +24,8 @@ import nullpointerexception.tbag.rooms.Door;
 import nullpointerexception.tbag.rooms.Room;
 
 public class DerbyDatabase implements IDatabase {
+	private String username;
+	
 	static {
 		try {
 			Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
@@ -53,6 +56,22 @@ public class DerbyDatabase implements IDatabase {
 		for (Npc npc : npcs) {
 			//System.out.println(npc.toString());
 		}
+	}
+	public void setUsername(String username) {
+		this.username = username;
+	}
+	
+	public void initialize() {
+		System.out.println("Searching for existing database ... ");
+		
+		File file = new File("C:/Users/" + System.getProperty("user.name") + "/Documents/" + username + ".db");
+		
+		if (!file.exists()) {
+			createTables();
+			loadInitialData();
+		}
+		
+		System.out.println("Finished search. ");
 	}
 
 	public void createTables() {
@@ -2391,7 +2410,7 @@ public class DerbyDatabase implements IDatabase {
 	// TODO: DO NOT PUT THE DB IN THE SAME FOLDER AS YOUR PROJECT - that will cause
 	// conflicts later w/Git
 	private Connection connect() throws SQLException {
-		Connection conn = DriverManager.getConnection("jdbc:derby:C:/Users/drumm/bruhMoment1.db;create=true");
+		Connection conn = DriverManager.getConnection("jdbc:derby:C:/Users/" + System.getProperty("user.name") + "/Documents/" + username + ".db;create=true");
 
 		// Set autocommit() to false to allow the execution of
 		// multiple queries/statements as part of the same transaction.

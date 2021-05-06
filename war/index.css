@@ -1,0 +1,22 @@
+@font-face	{
+	font-family: IBMVGA8;
+	src: url('PxPlus_IBM_VGA_9x16.ttf') format('truetype'); 
+}
+
+body {
+	background-color: black;	
+}
+th, h1 {
+	font-family: IBMVGA8,monospace;
+	color: white;
+}
+input {
+	font-family: IBMVGA8,monospace;
+	background-color: black;
+	color: white;
+}
+
+.statusMessage {
+	font-family: IBMVGA8,monospace;
+	color: white;	
+}

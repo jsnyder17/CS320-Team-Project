@@ -33,6 +33,7 @@
 				</tr>
 			</table>
 			<input type="Submit" name="submit" value="Login">
+			<input type="Submit" name="submit" value="new">
 		</form>
 	</body>
 </html>

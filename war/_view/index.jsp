@@ -5,19 +5,19 @@
 <html>
 	<head>
 		<title>Login</title>
+		<link rel="stylesheet" type="text/css" href="index.css">
 	</head>
 	
 	<body>
-		<c:if test="${! empty errorMessage}">
-				<div class="error">${errorMessage}</div>
-		</c:if>
-		
 	  <div align="center">
+	  	<h1>===================================</h1>
+	  	<h1>Meme Quest</h1>
+	  	<h1>===================================</h1>
 	 	<form action="${pageContext.servletContext.contextPath}/index" method="post">
 		<table style="width: 80%">
 			<tr>
 				<th>User name</th>
-				<th><input type="text" name="userName" value="${userName}" /></th>
+				<th><input type="text" name="username" value="${username}" /></th>
 			</tr>
 		
 			<tr>
@@ -26,7 +26,12 @@
 			</tr>
 		</table>
 			<input type="Submit" name="login" value="Login!!">
+			<input type="Submit" name="new" value="New User">
 		</form>
+		
+		<c:if test="${! empty errorMessage}">
+				<div class="statusMessage">${errorMessage}</div>
+		</c:if>
 	 </div>
 	</body>
 </html>
