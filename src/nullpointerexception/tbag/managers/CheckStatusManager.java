@@ -20,7 +20,7 @@ public class CheckStatusManager extends Manager {
 				// Decrement player health if vaccine has not been used
 				if (gm.getPlayer().getVaccineUseCount() < 4) {
 					// Decrement player health
-					gm.getPlayer().decrementHealth();
+					gm.getPlayer().decrementHealth(25);
 					db.updatePlayer(gm.getPlayer());
 					checkHealthStatus();
 				}
