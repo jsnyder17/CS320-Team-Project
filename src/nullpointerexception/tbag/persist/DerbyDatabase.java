@@ -2391,7 +2391,7 @@ public class DerbyDatabase implements IDatabase {
 	// TODO: DO NOT PUT THE DB IN THE SAME FOLDER AS YOUR PROJECT - that will cause
 	// conflicts later w/Git
 	private Connection connect() throws SQLException {
-		Connection conn = DriverManager.getConnection("jdbc:derby:C:/Users/jawsh/bruhMoment1.db;create=true");
+		Connection conn = DriverManager.getConnection("jdbc:derby:C:/Users/drumm/bruhMoment1.db;create=true");
 
 		// Set autocommit() to false to allow the execution of
 		// multiple queries/statements as part of the same transaction.

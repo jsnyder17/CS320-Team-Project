@@ -93,6 +93,10 @@ public class Actor implements InventoryInterface {
 		health -= 1;
 	}
 	
+	public void decrementHealth(int healthMinus) {
+		health -= healthMinus;
+	}
+	
 	public void setActorId(int actorId) {
 		this.actorId = actorId;
 	}

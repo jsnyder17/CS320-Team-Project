@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import nullpointerexception.tbag.controller.GameManagerController;
+import nullpointerexception.tbag.items.Clothing;
 import nullpointerexception.tbag.model.GameManagerModel;
 import nullpointerexception.tbag.persist.DerbyDatabase;
 
@@ -45,18 +46,24 @@ public class GameServlet extends HttpServlet {
 		
 		if (gm.getDeathEnding()) {
 			ArrayList<String> loseList = new ArrayList<String>();
-			loseList.add("bluekid");
-			loseList.add("youdied");
-			loseList.add("mayor");
-			loseList.add("chariots");
-			loseList.add("frogg");
-			loseList.add("frogg2");
-			loseList.add("therules");
-			loseList.add("tyler");
-			loseList.add("nicejacket");
-			loseList.add("bobby");
-			loseList.add("patrick");
-			loseList.add("emoji");
+			if (((Clothing) gm.getPlayer().getInventory().getItem("mask")).getWearing() == false) {
+				loseList.add("mask");
+			}
+			else {
+				
+				loseList.add("bluekid");
+				loseList.add("youdied");
+				loseList.add("mayor");
+				loseList.add("chariots");
+				loseList.add("frogg");
+				loseList.add("frogg2");
+				loseList.add("therules");
+				loseList.add("tyler");
+				loseList.add("nicejacket");
+				loseList.add("bobby");
+				loseList.add("patrick");
+				loseList.add("emoji");
+			}
 			
 			int random = rand.nextInt(loseList.size());
 			
