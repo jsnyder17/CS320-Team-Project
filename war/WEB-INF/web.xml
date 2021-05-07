@@ -24,8 +24,11 @@
    <servlet>
   	<servlet-name>YouWonServlet</servlet-name>
   	<servlet-class>nullpointerexception.tbag.servlet.YouWonServlet</servlet-class></servlet>
+   <servlet>
+   	<servlet-name>NoMaskServlet</servlet-name>
+   	<servlet-class>nullpointerexception.tbag.servlet.NoMaskServlet</servlet-class></servlet>
 
-  <!-- Servlet mappings -->
+   <!-- Servlet mappings -->
   <servlet-mapping>
     <servlet-name>IndexServlet</servlet-name>
     <url-pattern>/index</url-pattern>
@@ -40,14 +43,16 @@
   </servlet-mapping>
   <servlet-mapping>
   	<servlet-name>YouLoseServlet</servlet-name>
-  	<url-pattern>/youdied</url-pattern>
-  	<url-pattern>/mask</url-pattern></servlet-mapping>
+  	<url-pattern>/youdied</url-pattern></servlet-mapping>
   <servlet-mapping>
     <servlet-name>YouWonServlet</servlet-name>
     <url-pattern>/youWon</url-pattern>
     <url-pattern>/congradulations</url-pattern>
     <url-pattern>/amongus</url-pattern>
   </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>NoMaskServlet</servlet-name>
+  	<url-pattern>/nomask</url-pattern></servlet-mapping>
 
   <!--
   <welcome-file-list>

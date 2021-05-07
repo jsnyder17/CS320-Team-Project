@@ -53,7 +53,12 @@ public class GameServlet extends HttpServlet {
 		gmc.doGame();
 		
 		if (gm.getDeathEnding()) {
-			resp.sendRedirect(req.getContextPath() + "/youdied");
+			if (((Clothing) gm.getPlayer().getInventory().getItem("mask")).getWearing() == false) {
+				resp.sendRedirect(req.getContextPath() + "/nomask");
+			}
+			else {
+				resp.sendRedirect(req.getContextPath() + "/youdied");
+			}
 		}
 		else if (gm.getCompletedEnding()) {
 			resp.sendRedirect(req.getContextPath() + "/youWon");
