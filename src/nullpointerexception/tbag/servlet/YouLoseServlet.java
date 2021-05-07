@@ -36,6 +36,7 @@ public class YouLoseServlet extends HttpServlet {
 		loseList.add("https://www.youtube.com/embed/C3E_sjZDVUo?controls=1&mute=0&autoplay=1"); // Patrick dies 
 		loseList.add("https://www.youtube.com/embed/frpKp420_Qk?controls=1&mute=0&autoplay=1"); // Emoji dies 
 		loseList.add("https://www.youtube.com/embed/j9V78UbdzWI?controls=1&mute=0&autoplay=1&amp;start=31"); // coffin dance 
+		loseList.add("https://www.youtube.com/embed/Aik2MS1N0Zc?controls=1&mute=0&autoplay=1&amp;start=7"); // dude throws coke into window 
 		
 		int random = rand.nextInt(loseList.size());
 		
