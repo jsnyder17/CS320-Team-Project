@@ -56,20 +56,7 @@ public class GameServlet extends HttpServlet {
 			resp.sendRedirect(req.getContextPath() + "/youdied");
 		}
 		else if (gm.getCompletedEnding()) {
-			System.out.println("Game Servlet: doPost");
-			
-			ArrayList<String> winList = new ArrayList<String>();
-			winList.add("youWon");
-			winList.add("congradulations");
-			winList.add("amongus");
-			
-			int random = rand.nextInt(winList.size());
-			
-			String fileName = winList.get(random);
-
-			req.getRequestDispatcher("/_view/" + fileName +".jsp").forward(req, resp);
-			
-			req.getRequestDispatcher("/_view/youWon.jsp").forward(req, resp);
+			resp.sendRedirect(req.getContextPath() + "/youWon");
 		}
 		else {
 			req.setAttribute("gameManager", gm);

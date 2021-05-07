@@ -21,20 +21,20 @@ public class YouWonServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 
-		System.out.println("\nLoginServlet: doGet");
+		System.out.println("YouWinServlet: doGet");
 		
 		ArrayList<String> winList = new ArrayList<String>();
-		winList.add("youWon");
-		winList.add("congradulations");
-		winList.add("amongus");
-	
-		
+		winList.add("https://www.youtube.com/embed/MoI8Z8Dq1yY?controls=1&mute=0&autoplay=1");
+		winList.add("https://www.youtube.com/embed/1Bix44C1EzY?controls=1&mute=0&autoplay=1");
+		winList.add("https://www.youtube.com/embed/96YhBRqW6T4?controls=1&mute=0&autoplay=1");
 		
 		int random = rand.nextInt(winList.size());
 		
 		String fileName = winList.get(random);
 
-		req.getRequestDispatcher("/_view/" + fileName +".jsp").forward(req, resp);
+		req.setAttribute("videoURL", fileName);
+		
+		req.getRequestDispatcher("/_view/youWon.jsp").forward(req, resp);
 	}
 	
 	@Override
@@ -46,6 +46,7 @@ public class YouWonServlet extends HttpServlet {
 			System.out.println("Restarting game...");
 			
 			DerbyDatabase db = new DerbyDatabase();
+			db.setUsername((String)getServletContext().getAttribute("username"));
 			db.dropTables();
 			db.createTables();
 			db.loadInitialData();
