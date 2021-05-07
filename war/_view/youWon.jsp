@@ -6,37 +6,7 @@
 <html>
         <head>
                 <title>You Won!</title>
-                <style type="text/css">
-                body {
-                        font-size: 200%;
-                        color: #ffffff;
-                        background-color: black;
-                }
-				
-				.center {
-					text-align: center;
-				}
-				
-				iframe {
-					display: block;
-					margin-left: auto;
-					margin-right: auto;
-				}
-				
-				.button {
-					cursor: pointer;
-					text-align: center;
-					padding: 10px 10px;
-					font-size: 100%;
-					color:white;
-					background-color: black;
-					display: inline-block;
-					border: none;
-					margin: 4px 2px;
-					text-decoration: none;
-				}
-				
-                </style>
+               	<link rel="stylesheet" type="text/css" href="losescreen.css">
         </head>
 
         <body>
@@ -45,7 +15,7 @@
 			<div class ="center">
                 <h1>Winner!!!!!</h1>
 			</div>
-			<iframe width="1100" height="600" src="https://www.youtube.com/embed/MoI8Z8Dq1yY?controls=1&mute=0&autoplay=1" title="You Died Player" frameborder="0" allow="autoplay; picture-in-picture" allowfullscreen></iframe>
+			<iframe width="1100" height="600" src="${videoURL}" title="You Died Player" frameborder="0" allow="autoplay; picture-in-picture" allowfullscreen></iframe>
 			
 			<div class ="center">
 				<input type="Submit", name="Restart", class ="button", onclick="alertFunction()", value="Restart"></input>
