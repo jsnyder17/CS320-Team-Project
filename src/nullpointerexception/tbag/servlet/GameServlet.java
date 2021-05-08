@@ -36,7 +36,11 @@ public class GameServlet extends HttpServlet {
 		ServletContext servletContext = getServletContext();
 		String username = (String)servletContext.getAttribute("username");
 		
-		System.out.println("Username: " + username);
+		if (username == null) {
+			System.out.println("    User: <" + username + "> not logged in or session timed out. ");
+			
+			resp.sendRedirect(req.getContextPath() + "/index");
+		}
 		
 		Random rand = new Random();
 		
