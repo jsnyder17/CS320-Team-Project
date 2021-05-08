@@ -51,7 +51,7 @@ public class GameServlet extends HttpServlet {
 		db.setUsername(username);
 		db.initialize();
 		
-		GameManagerController gmc = new GameManagerController(gm, db);
+		GameManagerController gmc = new GameManagerController(username, gm, db);
 		
 		gmc.setCommand(req.getParameter("commandInput"));
 		gmc.doGame();

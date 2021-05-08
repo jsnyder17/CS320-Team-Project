@@ -36,7 +36,7 @@ public class GameManagerController {
 	private DerbyDatabase db;
 	private ArrayList<String> outputList;
 	
-	public GameManagerController(GameManagerModel gm, DerbyDatabase db) {
+	public GameManagerController(String username, GameManagerModel gm, DerbyDatabase db) {
 		this.gm = gm;
 		this.db = db;
 		
@@ -50,6 +50,9 @@ public class GameManagerController {
 		
 		// Player
         Player player = db.getPlayer();
+        
+        player.setName(username);
+        
         ArrayList<Room> rooms = db.getRooms();
         ArrayList<Npc> npcs = db.getNpcs(-1);
         ArrayList<Item> items;
