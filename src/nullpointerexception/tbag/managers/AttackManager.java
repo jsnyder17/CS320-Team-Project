@@ -29,9 +29,10 @@ public class AttackManager extends Manager {
 				String weaponName = "";
 				
 				for (int i = 0; i < npcs.size(); i++) {
+					manageUnhostileConditions(npcs.get(i));
+					
 					if (npcs.get(i).getHostile()) {
 						output.add(npcs.get(i).getName() + ": '" + npcs.get(i).getRandomCombatDialogue() + "'");
-						
 						
 						if (npcs.get(i).getEquippedWeaponIndex() != -1) {
 							System.out.println("My equipped weapon index is at: " + npcs.get(i).getEquippedWeaponIndex());
@@ -124,6 +125,16 @@ public class AttackManager extends Manager {
 			}
 			else {
 				output.add("Attack who? ");
+			}
+		}
+	}
+	
+	public void manageUnhostileConditions(Npc npc) {
+		// Strange man 
+		if (npc.getName().equals("strange_man")) {
+			if (npc.getInventory().getItem("fluffles'_the_bear") != null) {
+				npc.setHostile(false);
+				db.updateNPC(npc);
 			}
 		}
 	}
