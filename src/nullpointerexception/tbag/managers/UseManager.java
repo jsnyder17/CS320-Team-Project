@@ -92,8 +92,11 @@ public class UseManager extends Manager {
 		bookString += "'examine' - Get a description of your surroundings. \n";
 		bookString += "'inventory' - View a list of your items. \n";
 		bookString += "'use <item name>' - Use an item in your inventory. \n";
-		bookString += "'pickup <item name>' - Add an item you see to your inventory. \n";
-		bookString += "'drop <item name 1, item name 2, ...>' - Drop the specified items. \n";
+		bookString += "'pickup <item name 1, item name 2, ...>' OR 'pickup all' - Add an item you see to your inventory. \n";
+		bookString += "'take <item name 1, item name 2, ...>' OR 'take all' - Add an item you see to your inventory. \n";
+		bookString += "'drop <item name 1, item name 2, ...>' OR 'drop all' - Drop the specified items. \n";
+		bookString += "'insert <item name> <object name>' - Insert the specified item into an object in the room. \n";
+		bookString += "'give <item name> <entity name>' - Give the specified item to an entity in the room. \n";
 		bookString += "'put-on <item name>' - Wear an item in your inventory. \n";
 		bookString += "'take-off <item name>' - Take off an item you're wearing. \n";
 		bookString += "'turn-on <item name>' - Turn on a light source that you have. \n";
@@ -101,7 +104,9 @@ public class UseManager extends Manager {
 		bookString += "'equip <item name>' - Equip a weapon in your inventory. \n";
 		bookString += "'unequip <item name>' - Unequip your currently equipped weapon. \n";
 		bookString += "'attack <entity name> - Attack an entity with your currently equipped weapon. \n";
-		bookString += "'clear' - Clear your mind to relieve stress. \n\n";
+		bookString += "'talk <entity name> - Have a friendly chat with another in the room. \n";
+		bookString += "'clear' - Clear your mind to relieve stress. \n";
+		bookString += "'reset' - Gain the power of God and restart everything. \n\n";
 		bookString += "-- Rick Astley \n\n";
 		bookString += "P.S. \n";
 		bookString += "If you end up not making it out, we're never gonna give you up here in \n";
