@@ -397,58 +397,63 @@ public class Room implements InventoryInterface {
     
     public void calcDescription() {
     	//System.out.println("Calculating description ... ");
-    	description = roomDescription;
-    	
-    	if (inventory.getItems().size() > 0) {
-    		//System.out.println("Items found. ");
-    		description += "There is a ";
-
-    		for (int i = 0; i < inventory.getItems().size(); i++) {
-    			if (i != inventory.getItems().size() - 1) {
-    				if (inventory.getItems().size() > 2) {
-    					description += inventory.getItems().get(i).getName() + ", ";
-    				}
-    				else {
-    					description += inventory.getItems().get(i).getName() + " ";
-;    				}
-    			}
-    			else {
-    				if (inventory.getItems().size() > 1) {
-    					description += ("and " + inventory.getItems().get(i).getName());
-    				}
-    				else {
-    					description += " " + inventory.getItems().get(i).getName();
-    				}
-    			}
-    		}
-    		
-    		description += " here. ";
+    	if (!isDark) {
+	    	description = roomDescription;
+	    	
+	    	if (inventory.getItems().size() > 0) {
+	    		//System.out.println("Items found. ");
+	    		description += "There is a ";
+	
+	    		for (int i = 0; i < inventory.getItems().size(); i++) {
+	    			if (i != inventory.getItems().size() - 1) {
+	    				if (inventory.getItems().size() > 2) {
+	    					description += inventory.getItems().get(i).getName() + ", ";
+	    				}
+	    				else {
+	    					description += inventory.getItems().get(i).getName() + " ";
+	    				}
+	    			}
+	    			else {
+	    				if (inventory.getItems().size() > 1) {
+	    					description += ("and " + inventory.getItems().get(i).getName());
+	    				}
+	    				else {
+	    					description += " " + inventory.getItems().get(i).getName();
+	    				}
+	    			}
+	    		}
+	    		
+	    		description += " here. ";
+	    	}
+	    	
+	    	// NPCs
+	    	if (npcs.size() > 0) {
+	    		description += "You see a "; 
+	    		
+	    		for (int i = 0; i < npcs.size(); i++) {
+	    			if (i != npcs.size() - 1) {
+	    				if (npcs.size() > 2) {
+	    					description += (npcs.get(i).getName() + ", ");
+	    				}
+	    				else {
+	    					description += (npcs.get(i).getName() + " ");
+	    				}
+	    			}
+	    			else {
+	    				if (npcs.size() > 1) {
+	    					description += ("and a " + npcs.get(i).getName());
+	    				}
+	    				else {
+	    					description += npcs.get(i).getName();
+	    				}
+	    			}
+	    		}
+	    		
+	    		description += " here. ";
+	    	}
     	}
-    	
-    	// NPCs
-    	if (npcs.size() > 0) {
-    		description += "You see a "; 
-    		
-    		for (int i = 0; i < npcs.size(); i++) {
-    			if (i != npcs.size() - 1) {
-    				if (npcs.size() > 2) {
-    					description += (npcs.get(i).getName() + ", ");
-    				}
-    				else {
-    					description += (npcs.get(i).getName() + " ");
-    				}
-    			}
-    			else {
-    				if (npcs.size() > 1) {
-    					description += ("and a " + npcs.get(i).getName());
-    				}
-    				else {
-    					description += npcs.get(i).getName();
-    				}
-    			}
-    		}
-    		
-    		description += " here. ";
+    	else {
+    		description = "It's pitch black in here. You can't see a thing. ";
     	}
     	
     	//System.out.println(description);

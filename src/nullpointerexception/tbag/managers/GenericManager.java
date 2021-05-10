@@ -30,8 +30,6 @@ public class GenericManager extends Manager {
 		}
 	}
 	
-	
-	
 	private void examine() {
 		if (commandParams.size() < 3) {
 			if (commandParams.size() == 1) {

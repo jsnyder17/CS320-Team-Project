@@ -3,6 +3,7 @@ package nullpointerexception.tbag.managers;
 import java.util.ArrayList;
 
 import nullpointerexception.tbag.actors.Npc;
+import nullpointerexception.tbag.items.Item;
 import nullpointerexception.tbag.items.Weapon;
 import nullpointerexception.tbag.model.GameManagerModel;
 import nullpointerexception.tbag.persist.DerbyDatabase;
@@ -15,7 +16,9 @@ public class AttackManager extends Manager {
 		
 		csm = new CheckStatusManager(gm, db);
 		
-		executeBattle();
+		if (!gm.getRooms().get(gm.getCurrentRoomIndex()).getIsDark()) {
+			executeBattle();
+		}
 	}
 	
 	private void executeBattle() {
@@ -29,28 +32,37 @@ public class AttackManager extends Manager {
 				String weaponName = "";
 				
 				for (int i = 0; i < npcs.size(); i++) {
+					boolean found = false;
 					manageUnhostileConditions(npcs.get(i));
 					
 					if (npcs.get(i).getHostile()) {
 						output.add(npcs.get(i).getName() + ": '" + npcs.get(i).getRandomCombatDialogue() + "'");
 						
-						if (npcs.get(i).getEquippedWeaponIndex() != -1) {
-							System.out.println("My equipped weapon index is at: " + npcs.get(i).getEquippedWeaponIndex());
-							Weapon wm = (Weapon)npcs.get(i).getInventory().getItems().get(npcs.get(i).getEquippedWeaponIndex());
-							
-							if(npcs.get(i).getName().equals("dr_scientist")) {
-								damage = wm.getDamage()/(gm.getPlayer().getVaccineUseCount()+1);
-								weaponName = wm.getName();
-							}
-							else {
-							damage = wm.getDamage();
-							weaponName = wm.getName();
+						for (Item item : npcs.get(i).getInventory().getItems()) {
+							if (item.getType() == 4) {
+								Weapon wm = (Weapon)item;
+								
+								if (wm.getEquipped()) {
+									if (npcs.get(i).getName().equals("dr_scientist")) {
+										damage = wm.getDamage()/(gm.getPlayer().getVaccineUseCount()+1);
+									}
+									else {
+										damage = wm.getDamage();
+									}
+									
+									weaponName = wm.getName();
+									
+									found = true;
+									
+									break;
+								}
 							}
 						}
-						else {
+						if (!found) {
 							damage = 1;
 							weaponName = "fist";
 						}
+							
 						
 						output.add("!!!! " + npcs.get(i).getName() + " attacked with " + weaponName + " for " + damage + " damage! !!!!");
 						
@@ -65,6 +77,7 @@ public class AttackManager extends Manager {
 		}
 		else {
 			if (commandParams.size() > 1) {
+				boolean found = false;
 				Npc npc = gm.getRooms().get(gm.getCurrentRoomIndex()).getNpc(commandParams.get(1));
 				
 				if (npc != null) {
@@ -72,13 +85,21 @@ public class AttackManager extends Manager {
 					String weaponName = "";
 					
 					// Determine damage
-					if (gm.getPlayer().getEquippedWeaponIndex() != -1) {
-						Weapon wm = (Weapon)gm.getPlayer().getInventory().getItems().get(gm.getPlayer().getEquippedWeaponIndex()); 
-						
-						damage = wm.getDamage();
-						weaponName = wm.getName();
+					for (Item item : gm.getPlayer().getInventory().getItems()) {
+						if (item.getType() == 4) {
+							Weapon wm = (Weapon)item;
+							
+							if (wm.getEquipped()) {
+								damage = wm.getDamage();
+								weaponName = wm.getName();
+								
+								found = true;
+								
+								break;
+							}
+						}
 					}
-					else {
+					if (!found) {
 						damage = 1;
 						weaponName = "fist";
 					}
@@ -108,9 +129,14 @@ public class AttackManager extends Manager {
 						
 						// Drop npc items if their inventory is not empty 
 						if (!npc.getInventory().getIsEmpty()) {
-							for (int i = 0; i < npc.getInventory().getItems().size(); i++) {
-								gm.getRooms().get(gm.getCurrentRoomIndex()).addItem(npc.getInventory().getItems().get(i));
-								db.moveItem(npc.getInventory().getItems().get(i).getItemId(), gm.getRooms().get(gm.getCurrentRoomIndex()).getInventoryId());
+							for (Item item : npc.getInventory().getItems()) {
+								if (item.getType() == 4) {
+									Weapon weapon = (Weapon)item;
+									
+									weapon.setEquipped(false);
+								}
+								gm.getRooms().get(gm.getCurrentRoomIndex()).addItem(item);
+								db.moveItem(item.getItemId(), gm.getRooms().get(gm.getCurrentRoomIndex()).getInventoryId());
 							}
 							output.add("It looks like they've dropped some things. ");
 						}

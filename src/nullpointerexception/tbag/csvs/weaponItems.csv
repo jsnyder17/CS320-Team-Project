@@ -1,4 +1,4 @@
-1,dagger,FALSE,2,FALSE
-3,banana,FALSE,4,FALSE
-8,dagger,FALSE,2,FALSE
-17,ray_gun,FALSE,10,FALSE
+1,dagger,FALSE,4,TRUE
+3,banana,FALSE,6,TRUE
+8,knife,FALSE,4,FALSE
+17,ray_gun,FALSE,10,TRUE

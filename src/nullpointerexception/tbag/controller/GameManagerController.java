@@ -19,6 +19,7 @@ import nullpointerexception.tbag.managers.EndGameManager;
 import nullpointerexception.tbag.managers.EquipManager;
 import nullpointerexception.tbag.managers.GenericManager;
 import nullpointerexception.tbag.managers.ItemExchangeManager;
+import nullpointerexception.tbag.managers.LightSourceManager;
 import nullpointerexception.tbag.managers.MovementManager;
 import nullpointerexception.tbag.managers.ResetManager;
 import nullpointerexception.tbag.managers.TalkManager;
@@ -184,6 +185,11 @@ public class GameManagerController {
 			
 			addoutputList(clm.getOutput());
 		}
+		else if (commandParams.get(0).equals("turn-on") || commandParams.get(0).equals("turn-off")) {
+			LightSourceManager lsm = new LightSourceManager(commandParams, gm, db);
+			
+			addoutputList(lsm.getOutput());
+		}
 		else if (commandParams.get(0).equals("examine") || commandParams.get(0).equals("inventory") || commandParams.get(0).equals("clear")) {
 			GenericManager gem = new GenericManager(commandParams, gm, db);
 			
@@ -249,10 +255,10 @@ public class GameManagerController {
         }
         System.out.println("\n\n\n\n\n\n");
         
-        System.out.println(gm.getPlayer().toString());
+        System.out.println(gm.getPlayer().toString() + "Equipped weapon index: " + gm.getPlayer().getEquippedWeaponIndex());
         System.out.println("====== player INVENTORY ======");
-        for (Item i : gm.getPlayer().getInventory().getItems()) {
-        	System.out.println(i.toString());
+        for (int i = 0; i < gm.getPlayer().getInventory().getItems().size(); i++) {
+        	System.out.println(i + ": " + gm.getPlayer().getInventory().getItems().get(i).toString());
         }
         
         System.out.println("\n\n\n");
