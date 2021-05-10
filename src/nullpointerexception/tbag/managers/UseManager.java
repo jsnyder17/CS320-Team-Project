@@ -26,19 +26,7 @@ public class UseManager extends Manager {
 					if (item.getType() == 1) {	// Key 
 						unlockDoor(item);
 					}
-					else if (item.getType() == 2) {	// Light source 
-						if (gm.getRooms().get(gm.getCurrentRoomIndex()).getIsDark()) {
-							gm.getRooms().get(gm.getCurrentRoomIndex()).setIsDark(false);
-							
-							db.updateRoom(gm.getRooms().get(gm.getCurrentRoomIndex()));
-							
-							output.add("The room lights up and you can now see clearly. There is a door to the east.");
-						}
-						else {
-							output.add("The room is already bright enough, don't you think? "); 
-						}
-					}
-					else if (item.getType() == 3 || item.getType() == 4) {
+					else if (item.getType() == 2 || item.getType() == 3 || item.getType() == 4) {
 						output.add("How exactly do you use that? ");
 					}
 				}

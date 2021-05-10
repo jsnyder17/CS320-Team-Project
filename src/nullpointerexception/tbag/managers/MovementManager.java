@@ -6,6 +6,8 @@ import java.util.Random;
 import nullpointerexception.tbag.model.GameManagerModel;
 import nullpointerexception.tbag.actors.Npc;
 import nullpointerexception.tbag.items.Clothing;
+import nullpointerexception.tbag.items.Item;
+import nullpointerexception.tbag.items.LightSource;
 import nullpointerexception.tbag.persist.DerbyDatabase;
 import nullpointerexception.tbag.rooms.Room;
 
@@ -23,35 +25,48 @@ public class MovementManager extends Manager {
 		if (commandParams.size() == 2) {
 			boolean canMove = false;
 			Random rand = new Random();
-			ArrayList<Npc> npcs = gm.getRooms().get(gm.getCurrentRoomIndex()).getNpcs();
+			Room room = gm.getRooms().get(gm.getCurrentRoomIndex());
+			ArrayList<Npc> npcs = room.getNpcs();
 			
 			// If the room contains hostile npcs, then have them prevent the player from traversing to the next room 
-			if (npcs.size() > 0) {
-				ArrayList<Npc> hostiles = new ArrayList<Npc>();
-				
-				for (int i = 0; i < npcs.size(); i++) {
-					if (npcs.get(i).getHostile()) {
-						hostiles.add(npcs.get(i));
-						System.out.println("Found hostile npc. ");
-					}
-				}
-				
-				if (hostiles.size() > 0) {
-					int result = rand.nextInt(100);
+			if (!room.getIsDark()) {
+				if (npcs.size() > 0) {
+					ArrayList<Npc> hostiles = new ArrayList<Npc>();
 					
-					if (result > 50) {
-						canMove = true;
+					for (int i = 0; i < npcs.size(); i++) {
+						if (npcs.get(i).getHostile()) {
+							hostiles.add(npcs.get(i));
+							System.out.println("Found hostile npc. ");
+						}
+					}
+					
+					if (hostiles.size() > 0) {
+						int result = rand.nextInt(100);
+						
+						if (result > 50) {
+							canMove = true;
+						}
+						else {
+							output.add("'" + hostiles.get(rand.nextInt(hostiles.size())).getName() + "' blocks your path! ");
+						}
 					}
 					else {
-						output.add("'" + hostiles.get(rand.nextInt(hostiles.size())).getName() + "' blocks your path! ");
+						canMove = true;
 					}
 				}
 				else {
 					canMove = true;
 				}
 			}
-			else {
-				canMove = true;
+			else {	// Player has 50% chance of moving in the dark 
+				int result = rand.nextInt(100);
+				
+				if (result > 50) {
+					canMove = true;
+				}
+				else {
+					output.add("You try to move in the darkness but trip and fall. ");
+				}
 			}
 			
 			if (canMove) {
@@ -77,8 +92,6 @@ public class MovementManager extends Manager {
 					
 					gm.setCurrentRoomIndex(gm.getPlayer().getCurrentRoom() - 1);
 					output.add("You moved north. ");
-					Room room = gm.getRooms().get(gm.getPlayer().getCurrentRoom() - 1);
-					output.add(room.getDescription());
 					
 					gm.getRooms().get(gm.getCurrentRoomIndex()).setPrevDiscovered(true);
 					db.updateRoom(gm.getRooms().get(gm.getCurrentRoomIndex()));
@@ -108,8 +121,6 @@ public class MovementManager extends Manager {
 					
 					gm.setCurrentRoomIndex(gm.getPlayer().getCurrentRoom() - 1);
 					output.add("You moved south. ");
-					Room room = gm.getRooms().get(gm.getPlayer().getCurrentRoom() - 1);
-					output.add(room.getDescription());
 					
 					gm.getRooms().get(gm.getCurrentRoomIndex()).setPrevDiscovered(true);
 					db.updateRoom(gm.getRooms().get(gm.getCurrentRoomIndex()));
@@ -138,8 +149,6 @@ public class MovementManager extends Manager {
 					
 					gm.setCurrentRoomIndex(gm.getPlayer().getCurrentRoom() - 1);
 					output.add("You moved east. ");
-					Room room = gm.getRooms().get(gm.getPlayer().getCurrentRoom() - 1);
-					output.add(room.getDescription());
 					
 					gm.getRooms().get(gm.getCurrentRoomIndex()).setPrevDiscovered(true);
 					db.updateRoom(gm.getRooms().get(gm.getCurrentRoomIndex()));
@@ -168,8 +177,6 @@ public class MovementManager extends Manager {
 					
 					gm.setCurrentRoomIndex(gm.getPlayer().getCurrentRoom() - 1);
 					output.add("You moved west. ");
-					Room room = gm.getRooms().get(gm.getPlayer().getCurrentRoom() - 1);
-					output.add(room.getDescription());
 					
 					gm.getRooms().get(gm.getCurrentRoomIndex()).setPrevDiscovered(true);
 					db.updateRoom(gm.getRooms().get(gm.getCurrentRoomIndex()));
@@ -195,8 +202,6 @@ public class MovementManager extends Manager {
 					
 					//gm.setCurrentRoomIndex(gm.getPlayer().getCurrentRoom() - 1);
 					output.add("You moved up. ");
-					Room room = gm.getRooms().get(gm.getPlayer().getCurrentRoom() - 1);
-					output.add(room.getDescription());
 					
 					gm.getRooms().get(gm.getCurrentRoomIndex()).setPrevDiscovered(true);
 					db.updateRoom(gm.getRooms().get(gm.getCurrentRoomIndex()));
@@ -219,8 +224,6 @@ public class MovementManager extends Manager {
 					
 					//gm.setCurrentRoomIndex(gm.getPlayer().getCurrentRoom() - 1);
 					output.add("You moved down. ");
-					Room room = gm.getRooms().get(gm.getPlayer().getCurrentRoom() - 1);
-					output.add(room.getDescription());
 					
 					gm.getRooms().get(gm.getCurrentRoomIndex()).setPrevDiscovered(true);
 					db.updateRoom(gm.getRooms().get(gm.getCurrentRoomIndex()));
@@ -241,7 +244,39 @@ public class MovementManager extends Manager {
 		
 		// If moved, check the player's mask status 
 		if (moved) {
+			checkLight();
+			
 			csm.checkMaskStatus();
+			
+			Room room = gm.getRooms().get(gm.getPlayer().getCurrentRoom() - 1);
+			output.add(room.getDescription());
+		}
+	}
+	private void checkLight() {
+		Room room = gm.getRooms().get(gm.getCurrentRoomIndex());
+		
+		// Check player's inventory for lit item
+		for (Item item : gm.getPlayer().getInventory().getItems()) {
+			if (item.getType() == 2) {
+				LightSource ls = (LightSource)item;
+				
+				room.setIsDark(!ls.getLit());
+				db.updateRoom(room);
+				
+				break;
+			}
+		}
+		
+		// Check room's inventory for lit item 
+		for (Item item : room.getInventory().getItems()) {
+			if (item.getType() == 2) {
+				LightSource ls = (LightSource)item;
+				
+				room.setIsDark(!ls.getLit());
+				db.updateRoom(room);
+				
+				break;
+			}
 		}
 	}
 	
