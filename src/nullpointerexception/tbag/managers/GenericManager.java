@@ -58,7 +58,7 @@ public class GenericManager extends Manager {
 		inventoryStr += "====== INVENTORY ======\n";
 		
 		for (int i = 0; i < gm.getPlayer().getInventory().getItemCount(); i++) {
-			inventoryStr += (gm.getPlayer().getInventory().getItems().get(i).getName() + "\n");
+			inventoryStr += (" * " + gm.getPlayer().getInventory().getItems().get(i).getName() + "\n");
 		}
 		inventoryStr += "=======================\nTotal: (" + gm.getPlayer().getInventory().getItemCount() + ") items\n";
 		
@@ -66,6 +66,6 @@ public class GenericManager extends Manager {
 	}
 	
 	private void clearScreen() {
-		
+		db.clearOutput();
 	}
 }

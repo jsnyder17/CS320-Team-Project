@@ -89,7 +89,7 @@ public class Library {
 			
 			writeData(userData);
 			
-			statusMessage = "Created new user data for '" + name + "!' ";
+			statusMessage = "Created new user data for '" + name + "!' You can now log in.  ";
 		}
 		
 		return statusMessage;

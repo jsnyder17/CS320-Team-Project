@@ -207,6 +207,26 @@ public class DerbyDatabase implements IDatabase {
 			}
 		});
 	}
+	
+	public void clearOutput() {
+		executeTransaction(new Transaction<Boolean>() {
+			@Override
+			public Boolean execute(Connection conn) throws SQLException {
+				PreparedStatement stmt = null;
+				
+				try {
+					stmt = conn.prepareStatement("DELETE FROM outputList");
+					
+					stmt.executeUpdate();
+				}
+				finally {
+					DBUtil.closeQuietly(stmt);
+				}
+				
+				return true;
+			}
+		});
+	}
 
 	public void dropTables() {
 		executeTransaction(new Transaction<Boolean>() {
