@@ -18,19 +18,21 @@ import nullpointerexception.tbag.persist.DerbyDatabase;
 public class GameServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private Random rand;
-	
+	private GameManagerModel gm;
+	private GameManagerController gmc;
+	private DerbyDatabase db;
+	private String username;
+
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-		System.out.println("Game Servlet: doGet");	
+		System.out.println("Game Servlet: doPost");
 		
-		// call JSP to generate empty form
 		req.getRequestDispatcher("/_view/game.jsp").forward(req, resp);
 	}
 	
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		
 		System.out.println("Game Servlet: doPost");
 		
 		ServletContext servletContext = getServletContext();
