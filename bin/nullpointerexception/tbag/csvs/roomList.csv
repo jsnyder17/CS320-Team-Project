@@ -1,10 +1,10 @@
-Lobby,You're standing in the lobby of a deserted secret facility.You can see an entrance to the north. ,TRUE,FALSE,FALSE,1,1,-1,-1,-1,-1,-1
-Hallway,You're in a long empty hallway. All you can see is one eerie door to the east.,FALSE,FALSE,TRUE,2,-1,2,3,-1,-1,-1
-Lab,You're in what looks like a laboratory with a large wooden door to the south. The place has been ransacked like someone was looking for something.,FALSE,FALSE,TRUE,3,-1,5,-1,4,-1,-1
-Office,You're in one of the head scientists office there's a closet door to the west. It looks like someone's been rummaging around in here and there's a closet door to the west with a big lock on it.,FALSE,FALSE,TRUE,4,6,-1,-1,7,-1,-1
-Closet,You're in the closet.It looks empty besides what might be a secret door on the floor. ,FALSE,FALSE,TRUE,5,-1,-1,8,-1,-1,9
-Basement,Looks like you've fallen through a trap door.,FALSE,FALSE,TRUE,6,-1,-1,10,-1,-1,-1
-Secret Lab,You're in some kind of secret testing facility there's a door to the east. Watch out for the test monkeys... they look hungry.,FALSE,FALSE,TRUE,7,-1,-1,12,11,-1,-1
-Storage Room,You're in a secret storage room with tons of questionably sources medical equipment and an exit to the south.,FALSE,FALSE,TRUE,8,-1,14,-1,13,-1,-1
+Lobby,You're standing in the lobby of a deserted secret facility. You can see an entrance to the north. ,TRUE,FALSE,FALSE,1,1,-1,-1,-1,-1,-1
+Hallway,You're in a long empty hallway. All you can see is one eerie door to the east. ,FALSE,FALSE,TRUE,2,-1,2,3,-1,-1,-1
+Lab,You're in what looks like a laboratory with a large wooden door to the south. The place has been ransacked like someone was looking for something. ,FALSE,FALSE,TRUE,3,-1,5,-1,4,-1,-1
+Office,You're in one of the head scientists office there's a closet door to the west. It looks like someone's been rummaging around in here and there's a closet door to the west with a big lock on it. ,FALSE,FALSE,TRUE,4,6,-1,-1,7,-1,-1
+Closet,You're in the closet. It looks empty besides what might be a secret door on the floor. ,FALSE,FALSE,TRUE,5,-1,-1,8,-1,-1,9
+Basement,Looks like you've fallen through a trap door. ,FALSE,FALSE,TRUE,6,-1,-1,10,-1,-1,-1
+Secret Lab,You're in some kind of secret testing facility there's a door to the east. Watch out for the test monkeys... they look hungry. ,FALSE,FALSE,TRUE,7,-1,-1,12,11,-1,-1
+Storage Room,You're in a secret storage room with tons of questionably sources medical equipment and an exit to the south. ,FALSE,FALSE,TRUE,8,-1,14,-1,13,-1,-1
 Secret Office,You're in the office of the evil man who's been running this whole underground facility. There's a tiny door to the east. ,FALSE,FALSE,TRUE,9,15,-1,16,-1,-1,-1
-Final Room,You're in the final room. You've almost made it out and you can finally see the light of day again.,FALSE,FALSE,TRUE,10,-1,-1,-1,17,-1,-1
+Final Room,You're in the final room. You've almost made it out and you can finally see the light of day again. ,FALSE,FALSE,TRUE,10,-1,-1,-1,17,-1,-1

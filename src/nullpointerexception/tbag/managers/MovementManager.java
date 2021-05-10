@@ -200,7 +200,7 @@ public class MovementManager extends Manager {
 					gm.getPlayer().setRoomNumber(gm.getRooms().get(gm.getCurrentRoomIndex()).getUpDoor().getNextRoom(currentRoom));
 					db.updatePlayer(gm.getPlayer());
 					
-					//gm.setCurrentRoomIndex(gm.getPlayer().getCurrentRoom() - 1);
+					gm.setCurrentRoomIndex(gm.getPlayer().getCurrentRoom() - 1);
 					output.add("You moved up. ");
 					
 					gm.getRooms().get(gm.getCurrentRoomIndex()).setPrevDiscovered(true);
@@ -222,7 +222,7 @@ public class MovementManager extends Manager {
 					gm.getPlayer().setRoomNumber(gm.getRooms().get(gm.getCurrentRoomIndex()).getDownDoor().getNextRoom(currentRoom));
 					db.updatePlayer(gm.getPlayer());
 					
-					//gm.setCurrentRoomIndex(gm.getPlayer().getCurrentRoom() - 1);
+					gm.setCurrentRoomIndex(gm.getPlayer().getCurrentRoom() - 1);
 					output.add("You moved down. ");
 					
 					gm.getRooms().get(gm.getCurrentRoomIndex()).setPrevDiscovered(true);

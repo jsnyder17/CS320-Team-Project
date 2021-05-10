@@ -70,6 +70,8 @@ public class AttackManager extends Manager {
 						
 						db.updatePlayer(gm.getPlayer());
 						
+						gm.setKiller(npcs.get(i).getName());
+						
 						csm.checkHealthStatus();
 					}
 				}

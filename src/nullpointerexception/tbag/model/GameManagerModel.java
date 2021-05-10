@@ -18,6 +18,7 @@ public class GameManagerModel {
 	private boolean endGame;
 	private boolean deathEnding;
 	private boolean completedEnding;
+	private String killer;
 	
 	public GameManagerModel() {
 		player = new Player();
@@ -31,28 +32,7 @@ public class GameManagerModel {
 		endGame = false;
 		deathEnding = false;
 		completedEnding = false;
-		
-		// Add items to player's inventory
-		/*
-		player.addItem(new ItemModel("book", new ArrayList<String>(), false));
-		player.addItem(new ItemModel("torch", new ArrayList<String>(), false));
-		player.addItem(new ItemModel("compass", new ArrayList<String>(), false));
-		
-		// Initalize doors
-		DoorModel door = new DoorModel(false, "This is the north door. ", false);
-		door.addRoomCoords(1);
-		door.addRoomCoords(2);
-		doors.add(door);
-		
-		// Initialize rooms 
-		RoomModel room1 = new RoomModel("Room 1", 1, "This is room 1. ", false, false, door, null, null, null, null, null);
-		room1.addItem(new ItemModel("box", new ArrayList<String>(), false));
-		room1.addItem(new ItemModel("paper", new ArrayList<String>(), false));
-		rooms.add(room1);
-		
-		RoomModel room2 = new RoomModel("Room 2", 2, "This is room 2. ", false, false, null, door, null, null, null, null);
-		rooms.add(room2);
-		*/	
+		killer = "";
 	}
 	public Player getPlayer() {
 		return player;
@@ -89,6 +69,9 @@ public class GameManagerModel {
 	}
 	public boolean getCompletedEnding() {
 		return completedEnding;
+	}
+	public String getKiller() {
+		return killer;
 	}
 	
 	public void setPlayer(Player player) {
@@ -138,6 +121,9 @@ public class GameManagerModel {
 	}
 	public void setCompletedEnding(boolean completedEnding) {
 		this.completedEnding = completedEnding;
+	}
+	public void setKiller(String killer) {
+		this.killer = killer;
 	}
 	public void setOutput(ArrayList<String> outputList) {
 		for (String s : outputList) {
