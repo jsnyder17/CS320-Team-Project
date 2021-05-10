@@ -32,7 +32,7 @@ public class UseManager extends Manager {
 							
 							db.updateRoom(gm.getRooms().get(gm.getCurrentRoomIndex()));
 							
-							output.add("The room lights up and you can now see clearly. ");
+							output.add("The room lights up and you can now see clearly. There is a door to the east.");
 						}
 						else {
 							output.add("The room is already bright enough, don't you think? "); 
