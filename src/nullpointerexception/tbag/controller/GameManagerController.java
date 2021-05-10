@@ -132,18 +132,13 @@ public class GameManagerController {
 	
 	public void doGame() {
 		boolean endGame = false;
+		boolean resetting = false;
 		
 		ArrayList<String> commandParams = new ArrayList<String>();
 		
 		outputList.add("> " + command);
 		
 		CheckStatusManager csm = new CheckStatusManager(gm, db);
-		
-		// Npc attacks
-	    AttackManager am = new AttackManager(null, gm, db);
-	    addoutputList(am.getOutput());
-	    
-	    gm.setDeathEnding(csm.checkHealthStatus());
 		
 		// Command entry 
 		CommandManager cm = new CommandManager();
@@ -171,7 +166,7 @@ public class GameManagerController {
 			}
 		}
 		else if (commandParams.get(0).equals("attack")) {
-			am = new AttackManager(commandParams, gm, db);
+			AttackManager am = new AttackManager(commandParams, gm, db);
 			
 			addoutputList(am.getOutput());
 		}
@@ -211,7 +206,17 @@ public class GameManagerController {
 			ResetManager rm = new ResetManager(commandParams, gm, db);
 			
 			addoutputList(rm.getOutput());
+			
+			resetting = true;
 		}
+		
+		// Npc attacks
+	    if (!resetting) {
+			AttackManager am = new AttackManager(null, gm, db);
+		    addoutputList(am.getOutput());
+		    
+		    gm.setDeathEnding(csm.checkHealthStatus());
+	    }
 		
 		processoutputList();
 	}
