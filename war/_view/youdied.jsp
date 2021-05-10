@@ -13,7 +13,7 @@
         	<form action="${pageContext.servletContext.contextPath}/youdied"
         	method="post">
 			<div class ="center">
-                <h1>You died...</h1>
+                <h1>You died at the hands of ${entityName}</h1>
 			</div>
 			<iframe width="1100" height="600" src="${videoURL}" title="You Died Player" frameborder="0" allow="autoplay; picture-in-picture" allowfullscreen></iframe>
 			

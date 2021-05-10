@@ -5,6 +5,7 @@ import java.util.Random;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -21,6 +22,9 @@ public class YouLoseServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
 		System.out.println("YouLoseServlet: doGet");
+		
+		ServletContext servletContext = getServletContext();
+		
 		
 		ArrayList<String> loseList = new ArrayList<String>();
 		loseList.add("https://www.youtube.com/embed/DRolhuX-Enw?controls=1&mute=0&autoplay=1");	// Blue kid 
@@ -42,6 +46,7 @@ public class YouLoseServlet extends HttpServlet {
 		
 		String fileName = loseList.get(random);
 		
+		req.setAttribute("entityName", servletContext.getAttribute("entity"));
 		req.setAttribute("videoURL", fileName);
 		
 		req.getRequestDispatcher("/_view/youdied.jsp").forward(req, resp);

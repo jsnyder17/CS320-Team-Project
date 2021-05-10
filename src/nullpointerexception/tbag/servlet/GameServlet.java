@@ -63,6 +63,8 @@ public class GameServlet extends HttpServlet {
 				resp.sendRedirect(req.getContextPath() + "/nomask");
 			}
 			else {
+				servletContext.setAttribute("entity", gm.getKiller());
+				
 				resp.sendRedirect(req.getContextPath() + "/youdied");
 			}
 		}
