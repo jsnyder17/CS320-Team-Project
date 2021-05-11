@@ -3,6 +3,8 @@ package nullpointerexception.tbag.junit;
 import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import org.junit.Before;
@@ -11,24 +13,26 @@ import org.junit.jupiter.api.Test;
 
 import nullpointerexception.tbag.actors.Npc;
 import nullpointerexception.tbag.actors.Player;
+import nullpointerexception.tbag.items.Clothing;
+import nullpointerexception.tbag.items.FinalRoomPuzzle;
 import nullpointerexception.tbag.items.Item;
+import nullpointerexception.tbag.items.LightSource;
+import nullpointerexception.tbag.items.Orb;
+import nullpointerexception.tbag.items.Weapon;
 import nullpointerexception.tbag.persist.DerbyDatabase;
 import nullpointerexception.tbag.rooms.Room;
 
 class DatabaseTest {
-	DerbyDatabase db = new DerbyDatabase();
+	private DerbyDatabase db = null;
 	
-	
+	@Before
+	public void setup() {
+		initializeDatabase();
+	}
 	
 	@Test
 	public void testOutPut() {
-		System.out.println("creating tables");
-		db.setUsername("ian");
-		db.dropTables();
-		db.createTables();
-		System.out.println("creating tables");
-		db.loadInitialData();
-		System.out.println("loading data");
+		initializeDatabase();
 		
 		ArrayList<String> inPut = new ArrayList<String>();
 		inPut.add("move");
@@ -44,13 +48,7 @@ class DatabaseTest {
 	
 	@Test
 	public void testGetRooms() {
-		System.out.println("creating tables");
-		db.setUsername("ian");
-		db.dropTables();
-		db.createTables();
-		System.out.println("creating tables");
-		db.loadInitialData();
-		System.out.println("loading data");
+		initializeDatabase();
 		
 		ArrayList<Room> rooms = db.getRooms(); 
 		assertEquals(3, rooms.get(2).getRoomId());
@@ -59,13 +57,7 @@ class DatabaseTest {
 	
 	@Test
 	public void testMovePlayer() {
-		System.out.println("creating tables");
-		db.setUsername("ian");
-		db.dropTables();
-		db.createTables();
-		System.out.println("creating tables");
-		db.loadInitialData();
-		System.out.println("loading data");
+		initializeDatabase();
 		
 		db.movePlayer(3);
 		assertEquals(3, db.getPlayer().getCurrentRoom());
@@ -73,14 +65,7 @@ class DatabaseTest {
 	
 	@Test
 	public void testUpdatePlayer() {
-		
-		System.out.println("creating tables");
-		db.setUsername("ian");
-		db.dropTables();
-		db.createTables();
-		System.out.println("creating tables");
-		db.loadInitialData();
-		System.out.println("loading data");
+		initializeDatabase();
 		
 		Player player = db.getPlayer();
 		player.setHealth(50);
@@ -94,14 +79,7 @@ class DatabaseTest {
 	
 	@Test
 	public void testGetNpc() {
-		
-		System.out.println("creating tables");
-		db.setUsername("ian");
-		db.dropTables();
-		db.createTables();
-		System.out.println("creating tables");
-		db.loadInitialData();
-		System.out.println("loading data");
+		initializeDatabase();
 		
 		Npc player = db.getIndividualNPC("wild_ape");
 		
@@ -113,14 +91,7 @@ class DatabaseTest {
 	
 	@Test
 	public void testUpdateNpc() {
-		
-		System.out.println("creating tables");
-		db.setUsername("ian");
-		db.dropTables();
-		db.createTables();
-		System.out.println("creating tables");
-		db.loadInitialData();
-		System.out.println("loading data");
+		initializeDatabase();
 		
 		Npc player = db.getIndividualNPC("wild_ape");
 		player.setHealth(10);
@@ -133,14 +104,7 @@ class DatabaseTest {
 	
 	@Test
 	public void testMoveItem() {
-		
-		System.out.println("creating tables");
-		db.setUsername("ian");
-		db.dropTables();
-		db.createTables();
-		System.out.println("creating tables");
-		db.loadInitialData();
-		System.out.println("loading data");
+		initializeDatabase();
 		
 		ArrayList<Item> first = db.getAllItemsFromLacation(2);
 		db.moveItem(2, 2);
@@ -153,8 +117,101 @@ class DatabaseTest {
 		}
 		
 		assertEquals(true, result);
-		
 	}
 	
+	@Test
+	public void testGetNpcNormalDialogue() {
+		initializeDatabase();
+		
+		ArrayList<String> dialogue = db.getNpcNormalDialogue("dying_rick_astley");
+		ArrayList<String> dialogue2 = db.getNpcNormalDialogue("robot_assistant");
+		
+		assertEquals(true, !dialogue.isEmpty());
+		assertEquals(true, !dialogue2.isEmpty());
+	}
+	
+	@Test
+	public void testGetNpcCombatDialogue() {
+		initializeDatabase();
+		
+		ArrayList<String> dialogue = db.getNpcCombatDialogue("strange_man");
+		ArrayList<String> dialogue2 = db.getNpcCombatDialogue("robot_assistant");
+		ArrayList<String> dialogue3 = db.getNpcCombatDialogue("wild_ape");
+		ArrayList<String> dialogue4 = db.getNpcCombatDialogue("dr_scientist");
+		
+		assertEquals(true, !dialogue.isEmpty());
+		assertEquals(true, !dialogue2.isEmpty());
+		assertEquals(true, !dialogue3.isEmpty());
+		assertEquals(true, !dialogue4.isEmpty());
+	}
+	
+	@Test
+	public void getPlayerItems() {
+		initializeDatabase();
+		
+		ArrayList<Item> items = db.getAllItemsFromLacation(db.getPlayer().getInventoryIndex());
+		
+		assertEquals(true, items.isEmpty());
+	}
+	
+	@Test
+	public void doUpdates() {
+		initializeDatabase();
+		
+		Item item = db.getItembyId(2);
+		LightSource ls = (LightSource)db.getItembyId(10);
+		Clothing c = (Clothing)db.getItembyId(7);
+		Weapon w = (Weapon)db.getItembyId(1);
+		Orb o = (Orb)db.getItembyId(11);
+		FinalRoomPuzzle frp = (FinalRoomPuzzle)db.getItembyId(16);
+		
+		Npc npc = db.getIndividualNPC("strange_man");
+		
+		item.setUsed(true);
+		db.updateBaseItem(item);
+		
+		ls.setUsed(true);
+		db.updateLsItem(ls);
+		
+		c.setUsed(true);
+		db.updateClothingItem(c);
+		
+		w.setUsed(true);
+		db.updateWeaponItem(w);
+		
+		o.setUsed(true);
+		db.updateOrbItem(o);
+		
+		frp.setUsed(true);
+		db.updateFrpItem(frp);
+		
+		npc.setHostile(false);
+		db.updateNPC(npc);
+		
+		assertEquals(true, db.getItembyId(2).getUsed());
+		assertEquals(true, db.getItembyId(10).getUsed());
+		assertEquals(true, db.getItembyId(7).getUsed());
+		assertEquals(true, db.getItembyId(1).getUsed());
+		assertEquals(true, db.getItembyId(11).getUsed());
+		assertEquals(true, db.getItembyId(16).getUsed());
+		assertEquals(false, db.getIndividualNPC("strange_man").getHostile());
+	}
+	
+	private void initializeDatabase() {
+		db = new DerbyDatabase();
+		db.setUsername("JUnitTests");
 
+		File file = new File("C:/Users/" + System.getProperty("user.name") + "/Documents/JUnitTests.db/");
+
+		if (file.isDirectory()) {
+			System.out.println("Dropping tables ... ");
+			db.dropTables();
+		}
+		
+		System.out.println("Creating tables ... " );
+		db.createTables();
+		
+		System.out.println("Loading initial data from CSVs ... ");
+		db.loadInitialData();
+	}
 }
