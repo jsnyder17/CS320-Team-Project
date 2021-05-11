@@ -152,6 +152,10 @@ public class GameManagerController {
 			MovementManager mm = new MovementManager(commandParams, gm, db);
 			
 			addoutputList(mm.getOutput());
+			
+			if (mm.getMoved()) {
+				csm.checkMaskStatus();
+			}
 		}
 		else if (commandParams.get(0).equals("take") || commandParams.get(0).equals("pick-up") || commandParams.get(0).equals("drop") || commandParams.get(0).equals("give") || commandParams.get(0).equals("insert")) {
 			ItemExchangeManager iem = new ItemExchangeManager(commandParams, gm, db);
@@ -192,7 +196,6 @@ public class GameManagerController {
 		}
 		else if (commandParams.get(0).equals("equip") || commandParams.get(0).equals("unequip")) {
 			EquipManager em = new EquipManager(commandParams, gm, db);
-			updateEquippedWeaponIndex();
 			
 			addoutputList(em.getOutput());
 		}
@@ -229,20 +232,6 @@ public class GameManagerController {
 	private void addoutputList(ArrayList<String> outputList) {
 		for (String s : outputList) {
 			this.outputList.add(s);
-		}
-	}
-	
-	private void updateEquippedWeaponIndex() {
-		for (Item item : gm.getPlayer().getInventory().getItems()) {
-			if (item.getType() == 4) {
-				Weapon wm = (Weapon)item;
-				
-				if (wm.getEquipped()) {
-					gm.getPlayer().setEquippedWeaponIndex(gm.getPlayer().getInventory().findItem(item));
-					db.updatePlayer(gm.getPlayer());
-					db.updateWeaponItem(wm);
-				}
-			}
 		}
 	}
 	

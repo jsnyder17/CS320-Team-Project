@@ -13,7 +13,7 @@
         	<form action="${pageContext.servletContext.contextPath}/nomask"
         	method="post">
 			<div class ="center">
-                <h1>Shoulda put on the mask...</h1>
+                <h1>Shoulda put on the mask... you died.</h1>
 			</div>
 			<iframe width="1100" height="600" src="https://letmegooglethat.com/?q=How+to+put+on+mask%3F&l=1" title="You Died Player" frameborder="0" allow="autoplay; picture-in-picture" allowfullscreen></iframe>
 			

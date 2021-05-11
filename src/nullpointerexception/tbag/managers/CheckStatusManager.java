@@ -23,6 +23,8 @@ public class CheckStatusManager extends Manager {
 					gm.getPlayer().decrementHealth(25);
 					db.updatePlayer(gm.getPlayer());
 					checkHealthStatus();
+					
+					gm.setKiller("mask");
 				}
 			}
 			else {

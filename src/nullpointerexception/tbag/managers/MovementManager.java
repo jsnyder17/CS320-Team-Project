@@ -13,6 +13,7 @@ import nullpointerexception.tbag.rooms.Room;
 
 public class MovementManager extends Manager {
 	private CheckStatusManager csm;
+	private boolean moved;
 	
 	public MovementManager(ArrayList<String> commandParams, GameManagerModel gm, DerbyDatabase db) {
 		super(commandParams, gm, db);
@@ -78,7 +79,6 @@ public class MovementManager extends Manager {
 		}
 	}
 	private void move(String direction, GameManagerModel gm, DerbyDatabase db) {
-		boolean moved = false;
 		int currentRoom = gm.getPlayer().getCurrentRoom();
 		
 		if (direction.equals("north")) {
@@ -246,8 +246,6 @@ public class MovementManager extends Manager {
 		if (moved) {
 			checkLight();
 			
-			csm.checkMaskStatus();
-			
 			Room room = gm.getRooms().get(gm.getPlayer().getCurrentRoom() - 1);
 			output.add(room.getDescription());
 		}
@@ -278,6 +276,10 @@ public class MovementManager extends Manager {
 				break;
 			}
 		}
+	}
+	
+	public boolean getMoved() {
+		return moved;
 	}
 	
 	public ArrayList<String> getOutput() {
