@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import nullpointerexception.tbag.controller.LoginController;
 import nullpointerexception.tbag.model.Library;
 
-
+// some of this code was take from the library project
 public class IndexServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private Library model;
