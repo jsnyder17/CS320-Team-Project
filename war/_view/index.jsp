@@ -18,7 +18,7 @@
 		<table style="width: 80%">
 			<tr>
 				<th>User name</th>
-				<th><input type="text" name="username" value="${username}" /></th>
+				<th><input type="text" name="username" autocomplete="off" value="${username}" /></th>
 			</tr>
 		
 			<tr>

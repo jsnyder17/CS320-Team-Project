@@ -74,13 +74,6 @@ public class GameManagerController {
         		if (room.getInventoryId() == (int)p.getRight()) {
         			Item item = db.getItembyId((int)p.getLeft());
         			
-        			/*
-        			if (item.getType() == 5) {
-        				FinalRoomPuzzle frp = (FinalRoomPuzzle)item;
-        				System.out.println("Adding " + frp.toString() + " ... ");
-        			}
-        			*/
-        			
         			room.addItem(item);
         		}
         	}
@@ -211,6 +204,9 @@ public class GameManagerController {
 			addoutputList(rm.getOutput());
 			
 			resetting = true;
+		}
+		else {
+			outputList.add("What? ");
 		}
 		
 		// Npc attacks
