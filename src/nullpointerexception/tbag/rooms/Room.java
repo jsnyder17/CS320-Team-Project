@@ -402,7 +402,7 @@ public class Room implements InventoryInterface {
 	    	
 	    	if (inventory.getItems().size() > 0) {
 	    		//System.out.println("Items found. ");
-	    		description += "There is a ";
+	    		description += " There is a ";
 	
 	    		for (int i = 0; i < inventory.getItems().size(); i++) {
 	    			if (i != inventory.getItems().size() - 1) {
@@ -418,12 +418,15 @@ public class Room implements InventoryInterface {
 	    					description += ("and " + inventory.getItems().get(i).getName());
 	    				}
 	    				else {
-	    					description += " " + inventory.getItems().get(i).getName();
+	    					description += inventory.getItems().get(i).getName();
 	    				}
 	    			}
 	    		}
 	    		
 	    		description += " here. ";
+	    	}
+	    	else {
+	    		description += " ";
 	    	}
 	    	
 	    	// NPCs
