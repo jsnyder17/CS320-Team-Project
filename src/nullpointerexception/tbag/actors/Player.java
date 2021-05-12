@@ -68,7 +68,6 @@ public class Player extends Actor {
 	public String getStatString() {
 		return statString;
 	}
-	
 	public void setVaccineUseCount(int vaccineUseCount) {
 		this.vaccineUseCount = vaccineUseCount;
 	}
