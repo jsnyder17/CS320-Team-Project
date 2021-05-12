@@ -1,15 +1,15 @@
 package nullpointerexception.tbag.junit;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Before;
 import org.junit.Test;
 
 import nullpointerexception.tbag.items.LightSource;
 
-
-public class LStest {
-	private LightSource model;
+public class LightSourceTest {
+private LightSource model;
 	
 	@Before
 	public void setup() {
@@ -21,7 +21,6 @@ public class LStest {
 		
 		assertFalse(model.getLit());
 	}
-	
 	@Test
 	public void testSetLit() {
 		model.setLit(true);
